@@ -16,6 +16,9 @@ dist-ssr
 *.md
 !README.md
 
+# Internal scripts (generator, inserter — not needed in repo)
+scripts/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
