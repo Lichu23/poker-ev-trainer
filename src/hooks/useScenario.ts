@@ -4,7 +4,9 @@ import {
   evFold,
   evCall,
   evBet,
+  evRaise,
   betAmountFromAction,
+  raiseAmountFromBet,
 } from '@/lib/evCalculator'
 import { getFoldFrequency } from '@/data/villainProfiles'
 import { saveResult } from '@/lib/sessionStorage'
@@ -41,8 +43,15 @@ function computeEV(
       return evCall(equity, pot, callAmt)
     }
 
+    case 'raise': {
+      const villainBet = villainBetAmount ?? 0
+      const raiseAmt = raiseAmountFromBet(villainBet)
+      const foldFreq = getFoldFrequency(villainType, 'overbet')
+      return evRaise(equity, pot, villainBet, raiseAmt, foldFreq)
+    }
+
     default: {
-      // all bet / raise actions
+      // bet_third / bet_half / bet_two_thirds / bet_pot
       const betAmt = betAmountFromAction(action, pot)
       const foldFreq = getFoldFrequency(villainType, betSizeKeyFromAction(action))
       return evBet(equity, pot, betAmt, foldFreq)
