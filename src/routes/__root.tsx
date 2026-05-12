@@ -1,4 +1,5 @@
 import { Outlet, createRootRoute } from '@tanstack/react-router'
+import { Analytics } from '@vercel/analytics/react'
 import { BottomNav } from '@/components/BottomNav'
 
 export const Route = createRootRoute({
@@ -8,6 +9,7 @@ export const Route = createRootRoute({
         <Outlet />
       </div>
       <BottomNav />
+      <Analytics />
     </div>
   ),
 })
