@@ -13,9 +13,10 @@ const BET_ACTIONS: PlayerAction[] = ['bet_third', 'bet_half', 'bet_two_thirds', 
 
 interface Props {
   scenario: Scenario
+  onNext: () => void
 }
 
-export function ScenarioView({ scenario }: Props) {
+export function ScenarioView({ scenario, onNext }: Props) {
   const navigate = useNavigate()
   const { phase, result, chooseAction } = useScenario(scenario)
   const [showHint, setShowHint] = useState(false)
@@ -56,7 +57,7 @@ export function ScenarioView({ scenario }: Props) {
         onClick={() => navigate({ to: '/' })}
         className="text-gray-500 hover:text-gray-300 text-sm self-start transition-colors"
       >
-        ← All scenarios
+        ← Change filters
       </button>
 
       <div>
@@ -152,7 +153,7 @@ export function ScenarioView({ scenario }: Props) {
             result={result}
             explanation={groqExplanation ?? scenario.explanation}
             isLoadingExplanation={isLoadingExplanation}
-            onNext={() => navigate({ to: '/' })}
+            onNext={onNext}
           />
         )}
       </div>

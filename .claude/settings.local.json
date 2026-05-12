@@ -4,7 +4,8 @@
       "WebSearch",
       "WebFetch(domain:gs.statcounter.com)",
       "WebFetch(domain:www.browserstack.com)",
-      "WebFetch(domain:m3.material.io)"
+      "WebFetch(domain:m3.material.io)",
+      "Bash(npx tsx *)"
     ]
   }
 }
