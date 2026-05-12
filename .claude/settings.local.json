@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:gs.statcounter.com)",
+      "WebFetch(domain:www.browserstack.com)",
+      "WebFetch(domain:m3.material.io)"
+    ]
+  }
+}
