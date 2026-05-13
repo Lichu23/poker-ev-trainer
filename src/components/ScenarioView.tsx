@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+﻿import { useState, useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useScenario } from '@/hooks/useScenario'
 import { useGroqExplanation } from '@/hooks/useGroqExplanation'
@@ -72,18 +72,18 @@ export function ScenarioView({ scenario, onNext }: Props) {
       </div>
 
       {/* Board + hand on green felt */}
-      <div className="bg-green-950 border border-green-900 rounded-xl p-4 flex flex-col gap-4">
+      <div className="bg-surface-1 border border-surface-3 rounded-xl p-4 flex flex-col gap-4">
         <div>
-          <div className="text-xs text-green-700 mb-2 uppercase tracking-wide font-medium">Board</div>
+          <div className="text-xs text-zinc-500 mb-2 uppercase tracking-wide font-medium">Board</div>
           <BoardDisplay board={scenario.board} />
         </div>
         <div>
-          <div className="text-xs text-green-700 mb-2 uppercase tracking-wide font-medium">Your hand</div>
+          <div className="text-xs text-zinc-500 mb-2 uppercase tracking-wide font-medium">Your hand</div>
           <HandDisplay hand={scenario.hand} />
         </div>
       </div>
 
-      <div className="bg-gray-900 rounded-xl p-4 grid grid-cols-3 gap-2 text-center text-base">
+      <div className="bg-surface-1 rounded-xl p-4 grid grid-cols-3 gap-2 text-center text-base">
         <div>
           <div className="text-gray-500 text-xs uppercase tracking-wide mb-1">Pot</div>
           <div className="text-white font-semibold">${scenario.pot}</div>
@@ -98,7 +98,7 @@ export function ScenarioView({ scenario, onNext }: Props) {
         </div>
       </div>
 
-      <div className="bg-gray-900 rounded-xl p-4">
+      <div className="bg-surface-1 rounded-xl p-4">
         <div className="text-xs text-gray-500 uppercase tracking-wide mb-1">Villain action</div>
         <div className="text-white font-medium">{villainActionLabel}</div>
         {reqEq !== null && (

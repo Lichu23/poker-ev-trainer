@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
 import { useScenarios } from '@/hooks/useScenarios'
@@ -57,10 +57,10 @@ export function Home() {
   }
 
   return (
-    <div className="h-full bg-gray-950 text-white flex flex-col items-center justify-center px-4 max-w-xl mx-auto">
+    <div className="h-full bg-surface-0 text-white flex flex-col items-center justify-center px-4 max-w-xl mx-auto">
       <div className="w-full flex flex-col gap-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-green-400 mb-2">Poker EV Trainer</h1>
+          <h1 className="text-4xl font-bold text-white  mb-2">Poker EV Trainer</h1>
           <p className="text-gray-400 text-base">Make the highest-EV decision on every river spot.</p>
 
           {user && (profileLoading || rankLoading) && (
@@ -76,26 +76,26 @@ export function Home() {
           {profile && !profileLoading && (() => {
             const levelInfo = computeLevel(profile.xp ?? 0)
             return (
-              <div className="mt-4 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 flex flex-col gap-2 text-left">
+              <div className="mt-4 bg-surface-1 border border-surface-3 rounded-2xl px-4 py-3 flex flex-col gap-2 text-left">
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <span className="text-white font-semibold text-sm">{profile.display_name}</span>
                     {rank && (
-                      <span className="text-xs text-gray-400 bg-gray-800 rounded-full px-2 py-0.5">
+                      <span className="text-xs text-gray-400 bg-surface-2 rounded-full px-2 py-0.5">
                         {rank.badge} {rank.name}
                       </span>
                     )}
                   </div>
-                  <span className="text-green-400 text-sm font-bold">
+                  <span className="text-white text-sm font-bold">
                     {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
                     Lv.{profile.level ?? 1}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 bg-gray-700 rounded-full h-2 overflow-hidden">
+                  <div className="flex-1 bg-surface-3 rounded-full h-2 overflow-hidden">
                     <div
-                      className="h-full bg-green-500 rounded-full transition-all duration-500"
+                      className="h-full bg-white rounded-full transition-all duration-500"
                       style={{ width: `${levelInfo.progressPct}%` }}
                     />
                   </div>
@@ -122,7 +122,7 @@ export function Home() {
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value as typeof ALL | Difficulty)}
-                className="w-full bg-gray-800 border border-gray-700 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-green-600 appearance-none cursor-pointer"
+                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
               >
                 <option value="all">All difficulties</option>
                 <option value="beginner">Beginner</option>
@@ -141,7 +141,7 @@ export function Home() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as typeof ALL | HandCategory)}
-                className="w-full bg-gray-800 border border-gray-700 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-green-600 appearance-none cursor-pointer"
+                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
               >
                 <option value="all">All hand types</option>
                 <option value="nuts">Nuts</option>
@@ -165,7 +165,7 @@ export function Home() {
           <button
             onClick={dealHand}
             disabled={isLoading || filtered.length === 0}
-            className="w-full bg-green-500 hover:bg-green-400 disabled:bg-gray-700 disabled:text-gray-500 text-gray-950 font-bold text-lg rounded-xl py-5 transition-colors cursor-pointer disabled:cursor-not-allowed"
+            className="w-full bg-white hover:bg-brand-400 disabled:bg-surface-3 disabled:text-gray-500 text-gray-950 font-bold text-lg rounded-xl py-5 transition-colors cursor-pointer disabled:cursor-not-allowed"
           >
             {isLoading ? 'Loading…' : 'Deal Hand'}
           </button>

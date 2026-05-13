@@ -1,4 +1,4 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router'
+﻿import { getRouteApi, useNavigate } from '@tanstack/react-router'
 import { useScenarios } from '@/hooks/useScenarios'
 import { ScenarioView } from './ScenarioView'
 
@@ -28,7 +28,7 @@ export function ScenarioPage() {
           <div className="text-gray-400 mb-4">Scenario not found.</div>
           <button
             onClick={() => navigate({ to: '/lobby' })}
-            className="text-green-400 underline underline-offset-4"
+            className="text-white underline underline-offset-4"
           >
             ← Back
           </button>

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query'
+﻿import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '@/hooks/useAuth'
 import { supabase } from '@/lib/supabase'
 import { computeRank } from '@/lib/rankCalculator'
@@ -55,14 +55,14 @@ export function LeaderboardPage() {
       <p className="text-gray-500 text-sm -mt-4">Ranked by avg EV lost · min 20 hands to appear</p>
 
       {needsMoreHands && (
-        <div className="bg-gray-900 rounded-xl p-4 flex flex-col gap-2">
+        <div className="bg-surface-1 rounded-xl p-4 flex flex-col gap-2">
           <div className="flex justify-between text-sm">
             <span className="text-gray-300">Your progress to appear</span>
             <span className="text-gray-400 font-mono">{myHandCount} / {MIN_HANDS}</span>
           </div>
-          <div className="w-full bg-gray-700 rounded-full h-2.5 overflow-hidden">
+          <div className="w-full bg-surface-3 rounded-full h-2.5 overflow-hidden">
             <div
-              className="h-full bg-green-500 rounded-full transition-all duration-500"
+              className="h-full bg-white rounded-full transition-all duration-500"
               style={{ width: `${Math.min((myHandCount / MIN_HANDS) * 100, 100)}%` }}
             />
           </div>
@@ -73,7 +73,7 @@ export function LeaderboardPage() {
       )}
 
       {isLoading && (
-        <div className="text-gray-400 animate-pulse text-center py-12">Loading…</div>
+        <div className="text-zinc-500 animate-pulse text-center py-12">Loading…</div>
       )}
 
       {isError && (
@@ -81,14 +81,14 @@ export function LeaderboardPage() {
       )}
 
       {!isLoading && !isError && rows.length === 0 && (
-        <div className="bg-gray-900 rounded-xl p-6 text-center text-gray-500 text-sm">
+        <div className="bg-surface-1 rounded-xl p-6 text-center text-gray-500 text-sm">
           No players yet — be the first to reach 20 hands.
         </div>
       )}
 
       {rows.length > 0 && (
-        <div className="bg-gray-900 rounded-xl overflow-hidden">
-          <div className="flex items-center gap-3 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wide">
+        <div className="bg-surface-1 rounded-xl overflow-hidden">
+          <div className="flex items-center gap-3 px-4 py-2 border-b border-surface-3 text-xs text-gray-500 uppercase tracking-wide">
             <span className="w-4 shrink-0">#</span>
             <span className="flex-1">Player</span>
             <span className="shrink-0 w-8 text-right">Corr</span>
@@ -100,18 +100,18 @@ export function LeaderboardPage() {
             return (
               <div
                 key={row.user_id}
-                className={`flex items-center gap-3 px-4 py-3 border-b border-gray-800 last:border-0 ${
-                  isMe ? 'bg-green-950' : ''
+                className={`flex items-center gap-3 px-4 py-3 border-b border-surface-3 last:border-0 ${
+                  isMe ? 'bg-surface-1' : ''
                 }`}
               >
                 <span className="text-gray-600 text-sm w-4 shrink-0">{i + 1}</span>
                 <div className="flex-1 min-w-0">
-                  <span className={`text-sm font-medium truncate ${isMe ? 'text-green-300' : 'text-white'}`}>
+                  <span className={`text-sm font-medium truncate ${isMe ? 'text-white' : 'text-white'}`}>
                     {row.display_name}
                   </span>
                   {rank && <span className="text-gray-500 text-xs ml-2">{rank.badge}</span>}
                 </div>
-                <span className={`text-sm font-mono shrink-0 ${row.correct_pct >= 70 ? 'text-green-400' : row.correct_pct >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
+                <span className={`text-sm font-mono shrink-0 ${row.correct_pct >= 70 ? 'text-white' : row.correct_pct >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
                   {row.correct_pct}%
                 </span>
                 <span className="text-sm font-mono text-red-400 shrink-0">

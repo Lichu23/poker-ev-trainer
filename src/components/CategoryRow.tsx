@@ -19,16 +19,14 @@ export function CategoryRow({ category, results, scenarios }: Props) {
 
   return (
     <div className="flex items-center gap-3">
-      <span className="text-gray-400 text-base w-28 shrink-0 capitalize">{category.replace('_', ' ')}</span>
-      <div className="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
+      <span className="text-zinc-400 text-sm w-28 shrink-0 capitalize">{category.replace('_', ' ')}</span>
+      <div className="flex-1 bg-surface-2 rounded-full h-2 overflow-hidden">
         <div
-          className={`h-full rounded-full ${pct >= 70 ? 'bg-green-500' : pct >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
+          className="h-full bg-white rounded-full"
           style={{ width: `${pct}%` }}
         />
       </div>
-      <span className="text-gray-400 text-base w-20 text-right shrink-0">
-        {correct}/{catResults.length} ({pct}%)
-      </span>
+      <span className="text-zinc-400 text-sm w-16 text-right shrink-0 font-mono">{pct}%</span>
     </div>
   )
 }

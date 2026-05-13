@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+﻿import { useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
 import { useAuth } from '@/hooks/useAuth'
 import { signInWithGoogle } from '@/lib/auth'
@@ -51,7 +51,7 @@ export function OnboardingScreen() {
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl font-bold text-green-400 mb-2 text-center">Poker EV Trainer</h1>
+      <h1 className="text-3xl font-bold text-white mb-2 text-center">Poker EV Trainer</h1>
       <p className="text-gray-400 text-center text-sm mb-10">
         Train your river decisions.<br />Make the highest-EV play every time.
       </p>
@@ -60,20 +60,20 @@ export function OnboardingScreen() {
       <div className="w-full flex flex-col gap-3">
         <button
           onClick={() => navigate({ to: '/lobby' })}
-          className="w-full bg-green-500 hover:bg-green-400 text-gray-950 font-bold text-base rounded-xl py-4 transition-colors"
+          className="w-full bg-white hover:bg-zinc-100 active:bg-zinc-200 text-black font-bold text-base rounded-xl h-14 transition-all "
         >
           Play as Guest
         </button>
 
         <div className="flex items-center gap-3 my-1">
-          <div className="flex-1 h-px bg-gray-800" />
+          <div className="flex-1 h-px bg-surface-2" />
           <span className="text-gray-600 text-xs">sign in to track stats &amp; compete</span>
-          <div className="flex-1 h-px bg-gray-800" />
+          <div className="flex-1 h-px bg-surface-2" />
         </div>
 
         <button
           onClick={() => signInWithGoogle()}
-          className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold text-base rounded-xl py-4 transition-colors flex items-center justify-center gap-3"
+          className="w-full bg-surface-1 hover:bg-surface-2 border border-surface-3 text-white font-semibold text-base rounded-xl h-14 transition-colors flex items-center justify-center gap-3"
         >
           <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>

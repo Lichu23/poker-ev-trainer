@@ -1,4 +1,4 @@
-import type { ScenarioResult } from '@/types/poker'
+﻿import type { ScenarioResult } from '@/types/poker'
 import type { XPBreakdown, LevelInfo } from '@/lib/xpCalculator'
 import { EVBar } from './EVBar'
 
@@ -16,7 +16,7 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
   const { isCorrect, evChosen, evOptimal, evLost, allEVs } = result
 
   return (
-    <div className="bg-gray-800 rounded-xl p-6 flex flex-col gap-5 w-full">
+    <div className="bg-surface-2 rounded-xl p-6 flex flex-col gap-5 w-full">
       <div
         className={`text-xl font-bold text-center ${isCorrect ? 'text-green-400' : 'text-red-400'}`}
       >
@@ -38,8 +38,8 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
         {!isCorrect && (
           <>
             <div>
-              <div className="text-xs text-gray-300 uppercase tracking-wide mb-1">Optimal EV</div>
-              <div className="text-2xl font-bold text-green-400">
+              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">Optimal EV</div>
+              <div className="text-2xl font-bold text-white">
                 +{evOptimal.toFixed(1)}
               </div>
             </div>
@@ -55,12 +55,12 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
 
       <EVBar evs={allEVs} />
 
-      <div className="border-t border-gray-700 pt-4">
+      <div className="border-t border-surface-3 pt-4">
         {isLoadingExplanation ? (
           <div className="flex flex-col gap-2 animate-pulse">
-            <div className="h-4 bg-gray-700 rounded w-full" />
-            <div className="h-4 bg-gray-700 rounded w-5/6" />
-            <div className="h-4 bg-gray-700 rounded w-4/6" />
+            <div className="h-4 bg-surface-3 rounded w-full" />
+            <div className="h-4 bg-surface-3 rounded w-5/6" />
+            <div className="h-4 bg-surface-3 rounded w-4/6" />
           </div>
         ) : (
           <p className="text-gray-300 text-base leading-relaxed">{explanation}</p>
@@ -68,22 +68,22 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
       </div>
 
       {xpBreakdown && levelInfo && (
-        <div className="border-t border-gray-700 pt-4 flex flex-col gap-2">
+        <div className="border-t border-surface-3 pt-4 flex flex-col gap-2">
           <div className="flex flex-col gap-1 text-sm">
             <div className="flex justify-between text-gray-300">
               <span>Base XP</span>
-              <span className="text-green-400">+{xpBreakdown.base}</span>
+              <span className="text-white">+{xpBreakdown.base}</span>
             </div>
             {xpBreakdown.correct > 0 && (
               <div className="flex justify-between text-gray-300">
                 <span>Correct</span>
-                <span className="text-green-400">+{xpBreakdown.correct}</span>
+                <span className="text-white">+{xpBreakdown.correct}</span>
               </div>
             )}
             {xpBreakdown.precision > 0 && (
               <div className="flex justify-between text-gray-300">
                 <span>Precision (EV lost &lt;$2)</span>
-                <span className="text-green-400">+{xpBreakdown.precision}</span>
+                <span className="text-white">+{xpBreakdown.precision}</span>
               </div>
             )}
             {xpBreakdown.streak > 0 && (
@@ -92,9 +92,9 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
                 <span className="text-yellow-400">+{xpBreakdown.streak}</span>
               </div>
             )}
-            <div className="flex justify-between font-semibold text-white border-t border-gray-700 pt-1 mt-1">
+            <div className="flex justify-between font-semibold text-white border-t border-surface-3 pt-1 mt-1">
               <span>Total XP</span>
-              <span className="text-green-400">+{xpBreakdown.total} XP</span>
+              <span className="text-white">+{xpBreakdown.total} XP</span>
             </div>
           </div>
 
@@ -103,9 +103,9 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
               {levelInfo.prestige > 0 && <span className="text-yellow-400 mr-1">★</span>}
               Lv.{levelInfo.level}
             </span>
-            <div className="flex-1 bg-gray-700 rounded-full h-2 overflow-hidden">
+            <div className="flex-1 bg-surface-3 rounded-full h-2 overflow-hidden">
               <div
-                className="h-full bg-green-500 rounded-full transition-all duration-700"
+                className="h-full bg-white rounded-full transition-all duration-700"
                 style={{ width: `${levelInfo.progressPct}%` }}
               />
             </div>
@@ -118,9 +118,9 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
 
       <button
         onClick={onNext}
-        className="bg-green-700 hover:bg-green-600 active:bg-green-800 active:scale-95 text-white text-base font-semibold py-4 rounded-lg transition-all"
+        className="bg-white hover:bg-zinc-100 active:bg-zinc-200 active:scale-95 text-black text-base font-semibold h-14 rounded-xl transition-all"
       >
-        Next Scenario →
+        Next Scenario
       </button>
     </div>
   )

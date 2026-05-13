@@ -1,5 +1,18 @@
-@import "tailwindcss";
+﻿@import "tailwindcss";
 
+/* ── Design tokens ─────────────────────────────── */
+@theme {
+  --font-sans: 'Poppins', system-ui, sans-serif;
+
+  /* Surfaces — near black with warm tint */
+  --color-surface-0: #0f0f13;
+  --color-surface-1: #18181f;
+  --color-surface-2: #222229;
+  --color-surface-3: #2e2e38;
+  --color-surface-4: #3a3a46;
+}
+
+/* ── Base ──────────────────────────────────────── */
 html, body {
   background-color: #030712; /* gray-950 */
 }

@@ -1,4 +1,4 @@
-import type { PlayerAction } from '@/types/poker'
+﻿import type { PlayerAction } from '@/types/poker'
 import { raiseAmountFromBet } from '@/lib/evCalculator'
 
 interface Props {
@@ -23,25 +23,14 @@ function getLabel(
     case 'bet_pot':       return { label: `Bet $${pot}`, sub: 'pot' }
     case 'raise': {
       const raiseAmt = raiseAmountFromBet(villainBetAmount ?? 0)
-      return { label: `Raise to $${raiseAmt}`, sub: '2.5× bet' }
+      return { label: `Raise to $${raiseAmt}`, sub: '2.5x bet' }
     }
   }
 }
 
-const ACTION_STYLES: Record<PlayerAction, string> = {
-  fold:           'bg-gray-700 hover:bg-gray-600',
-  check:          'bg-blue-700 hover:bg-blue-600',
-  call:           'bg-blue-700 hover:bg-blue-600',
-  bet_third:      'bg-green-700 hover:bg-green-600',
-  bet_half:       'bg-green-700 hover:bg-green-600',
-  bet_two_thirds: 'bg-green-700 hover:bg-green-600',
-  bet_pot:        'bg-yellow-600 hover:bg-yellow-500',
-  raise:          'bg-red-700 hover:bg-red-600',
-}
-
 export function ActionButtons({ actions, pot, villainBetAmount, onAction }: Props) {
   return (
-    <div className="flex flex-wrap gap-3 justify-center">
+    <div className="flex flex-wrap gap-2 justify-center">
       {actions.map((action) => {
         const { label, sub } = getLabel(action, pot, villainBetAmount)
         return (
@@ -51,7 +40,7 @@ export function ActionButtons({ actions, pot, villainBetAmount, onAction }: Prop
             className={`${ACTION_STYLES[action]} text-white text-base px-5 py-4 rounded-lg font-semibold min-w-[120px] transition-colors active:scale-95 active:opacity-80`}
           >
             <div>{label}</div>
-            {sub && <div className="text-xs opacity-75">{sub}</div>}
+            {sub && <div className="text-xs text-zinc-500">{sub}</div>}
           </button>
         )
       })}
