@@ -16,6 +16,7 @@ export function useScenarios() {
   return useQuery<Scenario[]>({
     queryKey: ['scenarios'],
     queryFn: fetchScenarios,
-    staleTime: 1000 * 60 * 60, // 1 hour — data never changes at runtime
+    staleTime: Infinity, // scenarios never change at runtime
+    gcTime: Infinity,   // keep in memory for the entire session
   })
 }

@@ -27,14 +27,15 @@ function useMyRank(userId: string | undefined) {
     },
     enabled: !!userId,
     staleTime: 1000 * 60,
+    placeholderData: (prev) => prev,
   })
 }
 
 export function Home() {
   const navigate = useNavigate()
   const { user } = useAuth()
-  const { data: profile } = useProfile(user)
-  const { data: rank } = useMyRank(user?.id)
+  const { data: profile, isLoading: profileLoading } = useProfile(user)
+  const { data: rank, isLoading: rankLoading } = useMyRank(user?.id)
   const { data: scenarios, isLoading, isError } = useScenarios()
   const [difficulty, setDifficulty] = useState<typeof ALL | Difficulty>(ALL)
   const [category, setCategory] = useState<typeof ALL | HandCategory>(ALL)
@@ -62,7 +63,17 @@ export function Home() {
           <h1 className="text-4xl font-bold text-white  mb-2">Poker EV Trainer</h1>
           <p className="text-gray-400 text-base">Make the highest-EV decision on every river spot.</p>
 
-          {profile && (() => {
+          {user && (profileLoading || rankLoading) && (
+            <div className="mt-4 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 flex flex-col gap-2 animate-pulse">
+              <div className="flex justify-between">
+                <div className="h-4 bg-gray-700 rounded w-32" />
+                <div className="h-4 bg-gray-700 rounded w-10" />
+              </div>
+              <div className="h-2 bg-gray-700 rounded w-full" />
+            </div>
+          )}
+
+          {profile && !profileLoading && (() => {
             const levelInfo = computeLevel(profile.xp ?? 0)
             return (
               <div className="mt-4 bg-surface-1 border border-surface-3 rounded-2xl px-4 py-3 flex flex-col gap-2 text-left">
@@ -95,7 +106,7 @@ export function Home() {
 
                 <button
                   onClick={() => signOut()}
-                  className="text-xs text-gray-600 hover:text-gray-400 transition-colors self-end"
+                  className="text-xs text-gray-500 hover:text-gray-300 transition-colors self-end min-h-[44px] min-w-[44px] flex items-center justify-end"
                 >
                   Sign out
                 </button>

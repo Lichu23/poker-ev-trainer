@@ -52,10 +52,10 @@ export function ScenarioView({ scenario, onNext }: Props) {
     : []
 
   return (
-    <div className="min-h-screen bg-surface-0 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
+    <div className="min-h-full bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <button
         onClick={() => navigate({ to: '/lobby' })}
-        className="text-gray-500 hover:text-gray-300 text-sm self-start transition-colors"
+        className="text-gray-400 hover:text-gray-200 text-sm self-start transition-colors min-h-[44px] flex items-center"
       >
         ← Change filters
       </button>

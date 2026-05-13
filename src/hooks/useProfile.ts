@@ -24,7 +24,8 @@ export function useProfile(user: User | null) {
       return (data as Profile) ?? null
     },
     enabled: !!user,
-    staleTime: 1000 * 30,
+    staleTime: 1000 * 60 * 5,
+    placeholderData: (prev) => prev, // show stale data instantly while refetching
   })
 }
 

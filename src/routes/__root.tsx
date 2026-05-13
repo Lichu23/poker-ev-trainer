@@ -5,7 +5,7 @@ import { BottomNav } from '@/components/BottomNav'
 function PageWrapper() {
   const { location } = useRouterState()
   return (
-    <div className="h-screen overflow-hidden bg-surface-0">
+    <div className="h-screen overflow-hidden bg-gray-950">
       <div
         key={location.pathname}
         className="h-full overflow-y-auto animate-page-in"

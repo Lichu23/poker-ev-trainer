@@ -28,7 +28,7 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
 
       <div className="flex justify-around text-center">
         <div>
-          <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">Your EV</div>
+          <div className="text-xs text-gray-300 uppercase tracking-wide mb-1">Your EV</div>
           <div
             className={`text-2xl font-bold ${evChosen >= 0 ? 'text-green-400' : 'text-red-400'}`}
           >
@@ -44,7 +44,7 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
               </div>
             </div>
             <div>
-              <div className="text-xs text-gray-400 uppercase tracking-wide mb-1">EV Lost</div>
+              <div className="text-xs text-gray-300 uppercase tracking-wide mb-1">EV Lost</div>
               <div className="text-2xl font-bold text-red-400">
                 -{evLost.toFixed(1)}
               </div>
@@ -70,24 +70,24 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
       {xpBreakdown && levelInfo && (
         <div className="border-t border-surface-3 pt-4 flex flex-col gap-2">
           <div className="flex flex-col gap-1 text-sm">
-            <div className="flex justify-between text-gray-400">
+            <div className="flex justify-between text-gray-300">
               <span>Base XP</span>
               <span className="text-white">+{xpBreakdown.base}</span>
             </div>
             {xpBreakdown.correct > 0 && (
-              <div className="flex justify-between text-gray-400">
+              <div className="flex justify-between text-gray-300">
                 <span>Correct</span>
                 <span className="text-white">+{xpBreakdown.correct}</span>
               </div>
             )}
             {xpBreakdown.precision > 0 && (
-              <div className="flex justify-between text-gray-400">
+              <div className="flex justify-between text-gray-300">
                 <span>Precision (EV lost &lt;$2)</span>
                 <span className="text-white">+{xpBreakdown.precision}</span>
               </div>
             )}
             {xpBreakdown.streak > 0 && (
-              <div className="flex justify-between text-gray-400">
+              <div className="flex justify-between text-gray-300">
                 <span>Streak bonus</span>
                 <span className="text-yellow-400">+{xpBreakdown.streak}</span>
               </div>

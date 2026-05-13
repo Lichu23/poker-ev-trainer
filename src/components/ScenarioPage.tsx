@@ -12,8 +12,8 @@ export function ScenarioPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-surface-0 text-white flex items-center justify-center">
-        <div className="text-zinc-500 animate-pulse">Loading scenario…</div>
+      <div className="min-h-full bg-gray-950 text-white flex items-center justify-center">
+        <div className="text-gray-400 animate-pulse">Loading scenario…</div>
       </div>
     )
   }
@@ -23,7 +23,7 @@ export function ScenarioPage() {
 
   if (!scenario) {
     return (
-      <div className="min-h-screen bg-surface-0 text-white flex items-center justify-center">
+      <div className="min-h-full bg-gray-950 text-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-gray-400 mb-4">Scenario not found.</div>
           <button
