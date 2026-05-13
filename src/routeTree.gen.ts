@@ -10,12 +10,25 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as StatsRouteImport } from './routes/stats'
+import { Route as LobbyRouteImport } from './routes/lobby'
+import { Route as LeaderboardRouteImport } from './routes/leaderboard'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScenarioIdRouteImport } from './routes/scenario.$id'
+import { Route as AuthCallbackRouteImport } from './routes/auth.callback'
 
 const StatsRoute = StatsRouteImport.update({
   id: '/stats',
   path: '/stats',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LobbyRoute = LobbyRouteImport.update({
+  id: '/lobby',
+  path: '/lobby',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LeaderboardRoute = LeaderboardRouteImport.update({
+  id: '/leaderboard',
+  path: '/leaderboard',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -28,34 +41,70 @@ const ScenarioIdRoute = ScenarioIdRouteImport.update({
   path: '/scenario/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthCallbackRoute = AuthCallbackRouteImport.update({
+  id: '/auth/callback',
+  path: '/auth/callback',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/lobby': typeof LobbyRoute
   '/stats': typeof StatsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/scenario/$id': typeof ScenarioIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/lobby': typeof LobbyRoute
   '/stats': typeof StatsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/scenario/$id': typeof ScenarioIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/leaderboard': typeof LeaderboardRoute
+  '/lobby': typeof LobbyRoute
   '/stats': typeof StatsRoute
+  '/auth/callback': typeof AuthCallbackRoute
   '/scenario/$id': typeof ScenarioIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/stats' | '/scenario/$id'
+  fullPaths:
+    | '/'
+    | '/leaderboard'
+    | '/lobby'
+    | '/stats'
+    | '/auth/callback'
+    | '/scenario/$id'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/stats' | '/scenario/$id'
-  id: '__root__' | '/' | '/stats' | '/scenario/$id'
+  to:
+    | '/'
+    | '/leaderboard'
+    | '/lobby'
+    | '/stats'
+    | '/auth/callback'
+    | '/scenario/$id'
+  id:
+    | '__root__'
+    | '/'
+    | '/leaderboard'
+    | '/lobby'
+    | '/stats'
+    | '/auth/callback'
+    | '/scenario/$id'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LeaderboardRoute: typeof LeaderboardRoute
+  LobbyRoute: typeof LobbyRoute
   StatsRoute: typeof StatsRoute
+  AuthCallbackRoute: typeof AuthCallbackRoute
   ScenarioIdRoute: typeof ScenarioIdRoute
 }
 
@@ -66,6 +115,20 @@ declare module '@tanstack/react-router' {
       path: '/stats'
       fullPath: '/stats'
       preLoaderRoute: typeof StatsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/lobby': {
+      id: '/lobby'
+      path: '/lobby'
+      fullPath: '/lobby'
+      preLoaderRoute: typeof LobbyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leaderboard': {
+      id: '/leaderboard'
+      path: '/leaderboard'
+      fullPath: '/leaderboard'
+      preLoaderRoute: typeof LeaderboardRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/': {
@@ -82,12 +145,22 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScenarioIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth/callback': {
+      id: '/auth/callback'
+      path: '/auth/callback'
+      fullPath: '/auth/callback'
+      preLoaderRoute: typeof AuthCallbackRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LeaderboardRoute: LeaderboardRoute,
+  LobbyRoute: LobbyRoute,
   StatsRoute: StatsRoute,
+  AuthCallbackRoute: AuthCallbackRoute,
   ScenarioIdRoute: ScenarioIdRoute,
 }
 export const routeTree = rootRouteImport
