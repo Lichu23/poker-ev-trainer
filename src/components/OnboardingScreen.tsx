@@ -85,6 +85,18 @@ export function OnboardingScreen() {
         </button>
 
       </div>
+
+      <p className="mt-8 text-zinc-600 text-xs text-center">
+        Built by{' '}
+        <a
+          href="https://github.com/Lichu23"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-zinc-400 hover:text-white transition-colors underline underline-offset-2"
+        >
+          @Lichu23
+        </a>
+      </p>
     </div>
   )
 }
