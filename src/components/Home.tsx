@@ -76,40 +76,28 @@ export function Home() {
           {profile && !profileLoading && (() => {
             const levelInfo = computeLevel(profile.xp ?? 0)
             return (
-              <div className="mt-4 bg-surface-1 border border-surface-3 rounded-2xl px-4 py-3 flex flex-col gap-2 text-left">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-2">
-                    <span className="text-white font-semibold text-sm">{profile.display_name}</span>
-                    {rank && (
-                      <span className="text-xs text-gray-400 bg-surface-2 rounded-full px-2 py-0.5">
-                        {rank.badge} {rank.name}
-                      </span>
-                    )}
+              <div className="mt-3 bg-surface-1 border border-surface-3 rounded-xl px-3 py-2 flex flex-col gap-1.5">
+                <div className="flex items-center justify-between gap-2">
+                  <div className="flex items-center gap-1.5 min-w-0">
+                    <span className="text-white font-medium text-sm truncate">{profile.display_name}</span>
+                    {rank && <span className="text-xs text-zinc-500 shrink-0">{rank.badge} {rank.name}</span>}
                   </div>
-                  <span className="text-white text-sm font-bold">
-                    {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
-                    Lv.{profile.level ?? 1}
-                  </span>
+                  <div className="flex items-center gap-3 shrink-0">
+                    <span className="text-white text-xs font-semibold">
+                      {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
+                      Lv.{profile.level ?? 1}
+                    </span>
+                    <button onClick={() => signOut()} className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
+                      Sign out
+                    </button>
+                  </div>
                 </div>
-
                 <div className="flex items-center gap-2">
-                  <div className="flex-1 bg-surface-3 rounded-full h-2 overflow-hidden">
-                    <div
-                      className="h-full bg-white rounded-full transition-all duration-500"
-                      style={{ width: `${levelInfo.progressPct}%` }}
-                    />
+                  <div className="flex-1 bg-surface-3 rounded-full h-1.5 overflow-hidden">
+                    <div className="h-full bg-white rounded-full transition-all duration-500" style={{ width: `${levelInfo.progressPct}%` }} />
                   </div>
-                  <span className="text-xs text-gray-500 shrink-0 font-mono">
-                    {levelInfo.currentXP}/{levelInfo.xpForNext} XP
-                  </span>
+                  <span className="text-xs text-zinc-600 shrink-0 font-mono">{levelInfo.currentXP}/{levelInfo.xpForNext}</span>
                 </div>
-
-                <button
-                  onClick={() => signOut()}
-                  className="text-xs text-gray-500 hover:text-gray-300 transition-colors self-end min-h-[44px] min-w-[44px] flex items-center justify-end"
-                >
-                  Sign out
-                </button>
               </div>
             )
           })()}
