@@ -62,10 +62,17 @@ export function ScenarioView({ scenario, onNext }: Props) {
 
       <div>
         <h2 className="text-xl font-bold text-white mb-1">{scenario.title}</h2>
-        <div className="flex gap-2 text-xs text-gray-500">
+        <div className="flex flex-wrap gap-2 text-xs text-gray-500">
+          <span className="capitalize font-medium text-gray-400">{scenario.street}</span>
+          {scenario.street !== 'river' && (
+            <span className="text-yellow-500/80">
+              · {scenario.street === 'turn' ? '1 card' : '2 cards'} to come
+            </span>
+          )}
+          <span>·</span>
           <span>{scenario.difficulty}</span>
           <span>·</span>
-          <span>{scenario.handCategory.replace('_', ' ')}</span>
+          <span>{scenario.handCategory.replace(/_/g, ' ')}</span>
           <span>·</span>
           <span>{scenario.position}</span>
         </div>
