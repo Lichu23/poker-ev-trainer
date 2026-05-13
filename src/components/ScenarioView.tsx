@@ -18,7 +18,7 @@ interface Props {
 
 export function ScenarioView({ scenario, onNext }: Props) {
   const navigate = useNavigate()
-  const { phase, result, chooseAction } = useScenario(scenario)
+  const { phase, result, chooseAction, xpBreakdown, levelInfo, streak } = useScenario(scenario)
   const [showHint, setShowHint] = useState(false)
   const { data: groqExplanation, isLoading: isLoadingExplanation } = useGroqExplanation(scenario, result)
 
@@ -154,6 +154,9 @@ export function ScenarioView({ scenario, onNext }: Props) {
             explanation={groqExplanation ?? scenario.explanation}
             isLoadingExplanation={isLoadingExplanation}
             onNext={onNext}
+            xpBreakdown={xpBreakdown ?? undefined}
+            levelInfo={levelInfo ?? undefined}
+            streak={streak}
           />
         )}
       </div>

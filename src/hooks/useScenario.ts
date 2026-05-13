@@ -12,6 +12,9 @@ import { getFoldFrequency } from '@/data/villainProfiles'
 import { saveResult } from '@/lib/sessionStorage'
 import { useAuth } from '@/hooks/useAuth'
 import { supabase } from '@/lib/supabase'
+import { useProfile, useUpdateProfile } from '@/hooks/useProfile'
+import { computeXP, computeLevel } from '@/lib/xpCalculator'
+import type { XPBreakdown, LevelInfo } from '@/lib/xpCalculator'
 
 type Phase = 'decision' | 'result'
 
@@ -76,13 +79,21 @@ interface UseScenarioReturn {
   phase: Phase
   allEVs: ActionEV[]
   result: ScenarioResult | null
+  xpBreakdown: XPBreakdown | null
+  levelInfo: LevelInfo | null
+  streak: number
   chooseAction: (action: PlayerAction) => void
 }
 
 export function useScenario(scenario: Scenario): UseScenarioReturn {
   const { user } = useAuth()
+  const { data: profile } = useProfile(user)
+  const updateProfile = useUpdateProfile(user)
   const [phase, setPhase] = useState<Phase>('decision')
   const [result, setResult] = useState<ScenarioResult | null>(null)
+  const [xpBreakdown, setXpBreakdown] = useState<XPBreakdown | null>(null)
+  const [levelInfo, setLevelInfo] = useState<LevelInfo | null>(null)
+  const [streak, setStreak] = useState(0)
 
   const allEVs = computeAllEVs(scenario)
 
@@ -118,11 +129,29 @@ export function useScenario(scenario: Scenario): UseScenarioReturn {
       }).then(({ error }) => {
         if (error) console.error('Failed to save result to DB:', error)
       })
+
+      if (profile) {
+        const newStreak = isCorrect ? (profile.current_streak ?? 0) + 1 : 0
+        const breakdown = computeXP(scenario.difficulty, isCorrect, evLost, newStreak)
+        const newTotalXP = (profile.xp ?? 0) + breakdown.total
+        const newLevel = computeLevel(newTotalXP)
+
+        setXpBreakdown(breakdown)
+        setLevelInfo(newLevel)
+        setStreak(newStreak)
+
+        updateProfile({
+          xp: newTotalXP,
+          level: newLevel.level,
+          prestige: newLevel.prestige,
+          current_streak: newStreak,
+        })
+      }
     }
 
     setResult(r)
     setPhase('result')
   }
 
-  return { phase, allEVs, result, chooseAction }
+  return { phase, allEVs, result, xpBreakdown, levelInfo, streak, chooseAction }
 }

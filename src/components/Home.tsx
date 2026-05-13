@@ -1,12 +1,39 @@
 import { useState } from 'react'
 import { useNavigate } from '@tanstack/react-router'
+import { useQuery } from '@tanstack/react-query'
 import { useScenarios } from '@/hooks/useScenarios'
+import { useAuth } from '@/hooks/useAuth'
+import { useProfile } from '@/hooks/useProfile'
+import { supabase } from '@/lib/supabase'
+import { computeRank } from '@/lib/rankCalculator'
+import { signOut } from '@/lib/auth'
 import type { Difficulty, HandCategory } from '@/types/poker'
 
 const ALL = 'all'
 
+function useMyRank(userId: string | undefined) {
+  return useQuery({
+    queryKey: ['my-rank', userId],
+    queryFn: async () => {
+      if (!userId) return null
+      const { data } = await supabase
+        .from('results')
+        .select('ev_lost')
+        .eq('user_id', userId)
+      if (!data || data.length === 0) return null
+      const avg = data.reduce((sum, r) => sum + Number(r.ev_lost), 0) / data.length
+      return computeRank(avg, data.length)
+    },
+    enabled: !!userId,
+    staleTime: 1000 * 60,
+  })
+}
+
 export function Home() {
   const navigate = useNavigate()
+  const { user } = useAuth()
+  const { data: profile } = useProfile(user)
+  const { data: rank } = useMyRank(user?.id)
   const { data: scenarios, isLoading, isError } = useScenarios()
   const [difficulty, setDifficulty] = useState<typeof ALL | Difficulty>(ALL)
   const [category, setCategory] = useState<typeof ALL | HandCategory>(ALL)
@@ -33,6 +60,31 @@ export function Home() {
         <div className="text-center">
           <h1 className="text-4xl font-bold text-green-400 mb-2">Poker EV Trainer</h1>
           <p className="text-gray-400 text-base">Make the highest-EV decision on every river spot.</p>
+
+          {profile && (
+            <div className="mt-3 flex items-center justify-center gap-3">
+              <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 rounded-full px-4 py-1.5">
+                <span className="text-gray-300 text-sm font-medium">{profile.display_name}</span>
+                <span className="text-gray-600">·</span>
+                <span className="text-green-400 text-sm font-semibold">
+                  {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
+                  Lv.{profile.level ?? 1}
+                </span>
+                {rank && (
+                  <>
+                    <span className="text-gray-600">·</span>
+                    <span className="text-sm">{rank.badge} {rank.name}</span>
+                  </>
+                )}
+              </div>
+              <button
+                onClick={() => signOut()}
+                className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
+              >
+                Sign out
+              </button>
+            </div>
+          )}
         </div>
 
         <div className="flex flex-col gap-4">

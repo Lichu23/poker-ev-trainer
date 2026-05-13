@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useAuth } from '@/hooks/useAuth'
 import { supabase } from '@/lib/supabase'
+import { computeRank } from '@/lib/rankCalculator'
 
 interface LeaderboardRow {
   user_id: string
@@ -8,7 +9,11 @@ interface LeaderboardRow {
   total_hands: number
   avg_ev_lost: number
   correct_pct: number
+  level: number
+  prestige: number
 }
+
+const MIN_HANDS = 20
 
 function useLeaderboard() {
   return useQuery({
@@ -22,14 +27,50 @@ function useLeaderboard() {
   })
 }
 
+function useMyHandCount(userId: string | undefined) {
+  return useQuery({
+    queryKey: ['my-hand-count', userId],
+    queryFn: async (): Promise<number> => {
+      if (!userId) return 0
+      const { count } = await supabase
+        .from('results')
+        .select('*', { count: 'exact', head: true })
+        .eq('user_id', userId)
+      return count ?? 0
+    },
+    enabled: !!userId,
+    staleTime: 1000 * 30,
+  })
+}
+
 export function LeaderboardPage() {
   const { user } = useAuth()
   const { data: rows = [], isLoading, isError } = useLeaderboard()
+  const { data: myHandCount = 0 } = useMyHandCount(user?.id)
+  const needsMoreHands = myHandCount < MIN_HANDS
 
   return (
     <div className="min-h-screen bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <h1 className="text-2xl font-bold text-white">Leaderboard</h1>
       <p className="text-gray-500 text-sm -mt-4">Ranked by avg EV lost · min 20 hands to appear</p>
+
+      {needsMoreHands && (
+        <div className="bg-gray-900 rounded-xl p-4 flex flex-col gap-2">
+          <div className="flex justify-between text-sm">
+            <span className="text-gray-300">Your progress to appear</span>
+            <span className="text-gray-400 font-mono">{myHandCount} / {MIN_HANDS}</span>
+          </div>
+          <div className="w-full bg-gray-700 rounded-full h-2.5 overflow-hidden">
+            <div
+              className="h-full bg-green-500 rounded-full transition-all duration-500"
+              style={{ width: `${Math.min((myHandCount / MIN_HANDS) * 100, 100)}%` }}
+            />
+          </div>
+          <p className="text-xs text-gray-500">
+            {MIN_HANDS - myHandCount} more hand{MIN_HANDS - myHandCount !== 1 ? 's' : ''} needed
+          </p>
+        </div>
+      )}
 
       {isLoading && (
         <div className="text-gray-400 animate-pulse text-center py-12">Loading…</div>
@@ -41,39 +82,49 @@ export function LeaderboardPage() {
 
       {!isLoading && !isError && rows.length === 0 && (
         <div className="bg-gray-900 rounded-xl p-6 text-center text-gray-500 text-sm">
-          No players yet. Play 20+ hands to appear here.
+          No players yet — be the first to reach 20 hands.
         </div>
       )}
 
       {rows.length > 0 && (
         <div className="bg-gray-900 rounded-xl overflow-hidden">
-          <div className="grid grid-cols-[2rem_1fr_3.5rem_3.5rem_3.5rem] gap-x-3 px-4 py-3 border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wide">
+          <div className="grid grid-cols-[2rem_1fr_3rem_3.5rem_3.5rem_3.5rem] gap-x-2 px-4 py-3 border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wide">
             <span>#</span>
             <span>Name</span>
+            <span className="text-right">Lvl</span>
             <span className="text-right">Hands</span>
-            <span className="text-right">Correct</span>
-            <span className="text-right">Avg EV</span>
+            <span className="text-right">Corr</span>
+            <span className="text-right">AvgEV</span>
           </div>
 
           {rows.map((row, i) => {
             const isMe = row.user_id === user?.id
+            const rank = computeRank(Number(row.avg_ev_lost), row.total_hands)
             return (
               <div
                 key={row.user_id}
-                className={`grid grid-cols-[2rem_1fr_3.5rem_3.5rem_3.5rem] gap-x-3 px-4 py-3 border-b border-gray-800 last:border-0 text-sm transition-colors ${
+                className={`grid grid-cols-[2rem_1fr_3rem_3.5rem_3.5rem_3.5rem] gap-x-2 px-4 py-3 border-b border-gray-800 last:border-0 text-sm transition-colors ${
                   isMe ? 'bg-green-950 text-green-300' : 'text-gray-300'
                 }`}
               >
                 <span className="text-gray-500 font-mono">{i + 1}</span>
-                <span className="font-medium truncate">
-                  {row.display_name}
-                  {isMe && <span className="text-green-400 ml-1 text-xs">you</span>}
+                <div className="min-w-0">
+                  <div className="font-medium truncate">
+                    {row.display_name}
+                    {isMe && <span className="text-green-400 ml-1 text-xs">you</span>}
+                  </div>
+                  {rank && (
+                    <div className="text-xs text-gray-500">{rank.badge} {rank.name}</div>
+                  )}
+                </div>
+                <span className="text-right text-green-400 font-mono text-xs self-center">
+                  {row.prestige > 0 && <span className="text-yellow-400">★</span>}{row.level}
                 </span>
-                <span className="text-right text-gray-400">{row.total_hands}</span>
-                <span className={`text-right font-mono ${row.correct_pct >= 70 ? 'text-green-400' : row.correct_pct >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
+                <span className="text-right text-gray-400 self-center">{row.total_hands}</span>
+                <span className={`text-right font-mono self-center ${row.correct_pct >= 70 ? 'text-green-400' : row.correct_pct >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
                   {row.correct_pct}%
                 </span>
-                <span className="text-right font-mono text-red-400">
+                <span className="text-right font-mono text-red-400 self-center">
                   ${Number(row.avg_ev_lost).toFixed(1)}
                 </span>
               </div>

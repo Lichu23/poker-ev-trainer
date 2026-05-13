@@ -19,6 +19,8 @@ dist-ssr
 # Internal scripts (generator, inserter — not needed in repo)
 scripts/
 
+temp_*.txt
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
