@@ -7,7 +7,7 @@ interface Props {
 }
 
 const DIFFICULTY_STYLES = {
-  beginner:     'bg-brand-900 text-brand-300',
+  beginner:     'bg-surface-2 text-white',
   intermediate: 'bg-yellow-900 text-yellow-300',
   advanced:     'bg-red-900 text-red-300',
 }
@@ -15,7 +15,7 @@ const DIFFICULTY_STYLES = {
 const CATEGORY_STYLES = {
   nuts:          'bg-purple-900 text-purple-300',
   strong_value:  'bg-blue-900 text-blue-300',
-  marginal:      'bg-surface-3 text-gray-300',
+  marginal:      'bg-surface-3 text-zinc-300',
   bluff_catcher: 'bg-orange-900 text-orange-300',
   air:           'bg-pink-900 text-pink-300',
 }

@@ -72,13 +72,13 @@ export function ScenarioView({ scenario, onNext }: Props) {
       </div>
 
       {/* Board + hand on green felt */}
-      <div className="bg-brand-950 border border-brand-900 rounded-xl p-4 flex flex-col gap-4">
+      <div className="bg-surface-1 border border-surface-3 rounded-xl p-4 flex flex-col gap-4">
         <div>
-          <div className="text-xs text-brand-700 mb-2 uppercase tracking-wide font-medium">Board</div>
+          <div className="text-xs text-zinc-500 mb-2 uppercase tracking-wide font-medium">Board</div>
           <BoardDisplay board={scenario.board} />
         </div>
         <div>
-          <div className="text-xs text-brand-700 mb-2 uppercase tracking-wide font-medium">Your hand</div>
+          <div className="text-xs text-zinc-500 mb-2 uppercase tracking-wide font-medium">Your hand</div>
           <HandDisplay hand={scenario.hand} />
         </div>
       </div>

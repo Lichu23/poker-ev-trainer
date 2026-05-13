@@ -46,7 +46,7 @@ function AuthCallback() {
 
   return (
     <div className="min-h-screen bg-surface-0 flex items-center justify-center">
-      <div className="text-gray-400 animate-pulse">Signing in…</div>
+      <div className="text-zinc-500 animate-pulse">Signing in…</div>
     </div>
   )
 }

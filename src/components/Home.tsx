@@ -59,7 +59,7 @@ export function Home() {
     <div className="h-full bg-surface-0 text-white flex flex-col items-center justify-center px-4 max-w-xl mx-auto">
       <div className="w-full flex flex-col gap-8">
         <div className="text-center">
-          <h1 className="text-4xl font-bold text-brand-400 neon-text mb-2">Poker EV Trainer</h1>
+          <h1 className="text-4xl font-bold text-white  mb-2">Poker EV Trainer</h1>
           <p className="text-gray-400 text-base">Make the highest-EV decision on every river spot.</p>
 
           {profile && (() => {
@@ -75,7 +75,7 @@ export function Home() {
                       </span>
                     )}
                   </div>
-                  <span className="text-brand-400 text-sm font-bold">
+                  <span className="text-white text-sm font-bold">
                     {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
                     Lv.{profile.level ?? 1}
                   </span>
@@ -84,7 +84,7 @@ export function Home() {
                 <div className="flex items-center gap-2">
                   <div className="flex-1 bg-surface-3 rounded-full h-2 overflow-hidden">
                     <div
-                      className="h-full bg-brand-500 rounded-full transition-all duration-500"
+                      className="h-full bg-white rounded-full transition-all duration-500"
                       style={{ width: `${levelInfo.progressPct}%` }}
                     />
                   </div>
@@ -111,7 +111,7 @@ export function Home() {
               <select
                 value={difficulty}
                 onChange={(e) => setDifficulty(e.target.value as typeof ALL | Difficulty)}
-                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-brand-600 appearance-none cursor-pointer"
+                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
               >
                 <option value="all">All difficulties</option>
                 <option value="beginner">Beginner</option>
@@ -130,7 +130,7 @@ export function Home() {
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as typeof ALL | HandCategory)}
-                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-brand-600 appearance-none cursor-pointer"
+                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
               >
                 <option value="all">All hand types</option>
                 <option value="nuts">Nuts</option>
@@ -154,7 +154,7 @@ export function Home() {
           <button
             onClick={dealHand}
             disabled={isLoading || filtered.length === 0}
-            className="w-full bg-brand-500 hover:bg-brand-400 disabled:bg-surface-3 disabled:text-gray-500 text-gray-950 font-bold text-lg rounded-xl py-5 transition-colors cursor-pointer disabled:cursor-not-allowed"
+            className="w-full bg-white hover:bg-brand-400 disabled:bg-surface-3 disabled:text-gray-500 text-gray-950 font-bold text-lg rounded-xl py-5 transition-colors cursor-pointer disabled:cursor-not-allowed"
           >
             {isLoading ? 'Loading…' : 'Deal Hand'}
           </button>

@@ -31,7 +31,7 @@ export function StatsPage() {
       </div>
 
       {isLoading ? (
-        <div className="text-gray-400 animate-pulse text-center py-12">Loading…</div>
+        <div className="text-zinc-500 animate-pulse text-center py-12">Loading…</div>
       ) : total === 0 ? (
         <p className="text-gray-500">No scenarios played yet. Go play some hands!</p>
       ) : (
@@ -44,7 +44,7 @@ export function StatsPage() {
             <div className="bg-surface-1 rounded-xl p-4 text-center">
               <div
                 className={`text-2xl font-bold ${
-                  pct >= 70 ? 'text-brand-400' : pct >= 50 ? 'text-yellow-400' : 'text-red-400'
+                  pct >= 70 ? 'text-green-400' : pct >= 50 ? 'text-white' : 'text-red-400'
                 }`}
               >
                 {pct}%

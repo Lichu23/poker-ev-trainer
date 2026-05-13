@@ -13,7 +13,7 @@ export function ScenarioPage() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-surface-0 text-white flex items-center justify-center">
-        <div className="text-gray-400 animate-pulse">Loading scenario…</div>
+        <div className="text-zinc-500 animate-pulse">Loading scenario…</div>
       </div>
     )
   }
@@ -28,7 +28,7 @@ export function ScenarioPage() {
           <div className="text-gray-400 mb-4">Scenario not found.</div>
           <button
             onClick={() => navigate({ to: '/lobby' })}
-            className="text-brand-400 underline underline-offset-4"
+            className="text-white underline underline-offset-4"
           >
             ← Back
           </button>

@@ -4,37 +4,18 @@
 @theme {
   --font-sans: 'Poppins', system-ui, sans-serif;
 
-  /* Brand — teal/neon */
-  --color-brand-50:  #f0fdfa;
-  --color-brand-100: #ccfbf1;
-  --color-brand-300: #5eead4;
-  --color-brand-400: #2dd4bf;
-  --color-brand-500: #14b8a6;
-  --color-brand-600: #0d9488;
-  --color-brand-700: #0f766e;
-  --color-brand-900: #042f2e;
-  --color-brand-950: #021a18;
-
-  /* Surfaces — slate (cool dark with slight blue tint) */
-  --color-surface-0: #020617;   /* deepest bg */
-  --color-surface-1: #0f172a;   /* cards, panels */
-  --color-surface-2: #1e293b;   /* inputs, elevated */
-  --color-surface-3: #334155;   /* borders */
+  /* Surfaces — near black with warm tint */
+  --color-surface-0: #0f0f13;
+  --color-surface-1: #18181f;
+  --color-surface-2: #222229;
+  --color-surface-3: #2e2e38;
+  --color-surface-4: #3a3a46;
 }
 
 /* ── Base ──────────────────────────────────────── */
 html, body {
-  background-color: #020617;
+  background-color: #0f0f13;
   font-family: 'Poppins', system-ui, sans-serif;
-}
-
-/* ── Neon effects ──────────────────────────────── */
-.neon-glow {
-  box-shadow: 0 0 24px rgba(20, 184, 166, 0.35), 0 0 60px rgba(20, 184, 166, 0.1);
-}
-
-.neon-text {
-  text-shadow: 0 0 24px rgba(20, 184, 166, 0.7);
 }
 
 /* ── Page transition ───────────────────────────── */

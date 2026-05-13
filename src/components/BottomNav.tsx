@@ -60,7 +60,7 @@ export function BottomNav() {
         <button
           onClick={() => navigate({ to: '/lobby' })}
           className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-            isHome ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'
+            isHome ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
           }`}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -72,7 +72,7 @@ export function BottomNav() {
         <button
           onClick={() => navigate({ to: '/stats' })}
           className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-            isStats ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'
+            isStats ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
           }`}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -85,7 +85,7 @@ export function BottomNav() {
           <button
             onClick={() => navigate({ to: '/leaderboard' })}
             className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-              isLeaderboard ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'
+              isLeaderboard ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
             }`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

@@ -32,7 +32,7 @@ export function OnboardingScreen() {
   if (loading) {
     return (
       <div className="min-h-screen bg-surface-0 flex items-center justify-center">
-        <div className="text-gray-400 animate-pulse">Loading…</div>
+        <div className="text-zinc-500 animate-pulse">Loading…</div>
       </div>
     )
   }
@@ -51,7 +51,7 @@ export function OnboardingScreen() {
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl font-bold text-brand-400 mb-2 text-center">Poker EV Trainer</h1>
+      <h1 className="text-3xl font-bold text-white mb-2 text-center">Poker EV Trainer</h1>
       <p className="text-gray-400 text-center text-sm mb-10">
         Train your river decisions.<br />Make the highest-EV play every time.
       </p>
@@ -60,7 +60,7 @@ export function OnboardingScreen() {
       <div className="w-full flex flex-col gap-3">
         <button
           onClick={() => navigate({ to: '/lobby' })}
-          className="w-full bg-brand-500 hover:bg-brand-400 active:bg-brand-600 text-slate-950 font-bold text-base rounded-xl h-14 transition-all neon-glow"
+          className="w-full bg-white hover:bg-zinc-100 active:bg-zinc-200 text-black font-bold text-base rounded-xl h-14 transition-all "
         >
           Play as Guest
         </button>
