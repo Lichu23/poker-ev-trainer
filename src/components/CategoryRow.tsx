@@ -1,12 +1,12 @@
-import { scenarios } from '@/data/scenarios'
-import type { HandCategory, ScenarioResult } from '@/types/poker'
+import type { HandCategory, ScenarioResult, Scenario } from '@/types/poker'
 
 interface Props {
   category: HandCategory
   results: ScenarioResult[]
+  scenarios: Scenario[]
 }
 
-export function CategoryRow({ category, results }: Props) {
+export function CategoryRow({ category, results, scenarios }: Props) {
   const catResults = results.filter((r) => {
     const s = scenarios.find((s) => s.id === r.scenarioId)
     return s?.handCategory === category

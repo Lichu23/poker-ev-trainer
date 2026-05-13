@@ -1,5 +1,6 @@
 import { useAuth } from '@/hooks/useAuth'
 import { useResults, useResetResults } from '@/hooks/useResults'
+import { useScenarios } from '@/hooks/useScenarios'
 import { CategoryRow } from './CategoryRow'
 import type { HandCategory } from '@/types/poker'
 
@@ -8,6 +9,7 @@ const CATEGORIES: HandCategory[] = ['nuts', 'strong_value', 'marginal', 'bluff_c
 export function StatsPage() {
   const { user } = useAuth()
   const { data: results = [], isLoading } = useResults(user)
+  const { data: scenarios = [] } = useScenarios()
   const resetResults = useResetResults(user)
 
   const total = results.length
@@ -50,7 +52,7 @@ export function StatsPage() {
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Correct</div>
             </div>
             <div className="bg-gray-900 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold text-red-400">-{totalEVLost.toFixed(1)}</div>
+              <div className="text-3xl font-bold text-red-400">-{Math.abs(totalEVLost).toFixed(1)}</div>
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">EV Lost</div>
             </div>
           </div>
@@ -58,7 +60,7 @@ export function StatsPage() {
           <div className="bg-gray-900 rounded-xl p-4 flex flex-col gap-3">
             <div className="text-base font-semibold text-gray-300 mb-1">Breakdown by category</div>
             {CATEGORIES.map((cat) => (
-              <CategoryRow key={cat} category={cat} results={results} />
+              <CategoryRow key={cat} category={cat} results={results} scenarios={scenarios} />
             ))}
           </div>
         </>
