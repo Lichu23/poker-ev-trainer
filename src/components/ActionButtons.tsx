@@ -37,7 +37,7 @@ export function ActionButtons({ actions, pot, villainBetAmount, onAction }: Prop
           <button
             key={action}
             onClick={() => onAction(action)}
-            className={`${ACTION_STYLES[action]} text-white text-base px-5 py-4 rounded-lg font-semibold min-w-[120px] transition-colors active:scale-95 active:opacity-80`}
+            className="bg-surface-2 hover:bg-surface-3 active:scale-95 active:opacity-80 border border-surface-3 text-white text-sm px-5 h-12 rounded-xl font-medium min-w-[110px] transition-all"
           >
             <div>{label}</div>
             {sub && <div className="text-xs text-zinc-500">{sub}</div>}
