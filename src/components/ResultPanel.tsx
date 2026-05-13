@@ -118,9 +118,9 @@ export function ResultPanel({ result, explanation, isLoadingExplanation = false,
 
       <button
         onClick={onNext}
-        className="bg-surface-2 hover:bg-brand-600 text-white text-base font-semibold py-4 rounded-lg transition-colors"
+        className="bg-white hover:bg-zinc-100 active:bg-zinc-200 active:scale-95 text-black text-base font-semibold h-14 rounded-xl transition-all"
       >
-        Next Scenario →
+        Next Scenario
       </button>
     </div>
   )
