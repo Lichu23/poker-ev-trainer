@@ -54,7 +54,7 @@ export function ScenarioView({ scenario, onNext }: Props) {
   return (
     <div className="min-h-screen bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <button
-        onClick={() => navigate({ to: '/' })}
+        onClick={() => navigate({ to: '/lobby' })}
         className="text-gray-500 hover:text-gray-300 text-sm self-start transition-colors"
       >
         ← Change filters

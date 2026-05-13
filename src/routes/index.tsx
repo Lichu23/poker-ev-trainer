@@ -1,9 +1,6 @@
-//src\routes\index.tsx
 import { createFileRoute } from '@tanstack/react-router'
-import { Home } from '@/components/Home'
-
-
+import { OnboardingScreen } from '@/components/OnboardingScreen'
 
 export const Route = createFileRoute('/')({
-  component: Home,
+  component: OnboardingScreen,
 })

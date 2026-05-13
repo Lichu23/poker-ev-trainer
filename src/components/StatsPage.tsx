@@ -1,28 +1,36 @@
-import { useState } from 'react'
-import { loadResults, clearResults } from '@/lib/sessionStorage'
+import { useAuth } from '@/hooks/useAuth'
+import { useResults, useResetResults } from '@/hooks/useResults'
 import { CategoryRow } from './CategoryRow'
 import type { HandCategory } from '@/types/poker'
 
 const CATEGORIES: HandCategory[] = ['nuts', 'strong_value', 'marginal', 'bluff_catcher', 'air']
 
 export function StatsPage() {
-  const [results, setResults] = useState(() => loadResults())
+  const { user } = useAuth()
+  const { data: results = [], isLoading } = useResults(user)
+  const resetResults = useResetResults(user)
 
   const total = results.length
   const correct = results.filter((r) => r.isCorrect).length
   const pct = total > 0 ? Math.round((correct / total) * 100) : 0
   const totalEVLost = results.reduce((sum, r) => sum + r.evLost, 0)
 
-  function handleReset() {
-    clearResults()
-    setResults([])
+  async function handleReset() {
+    await resetResults()
   }
 
   return (
     <div className="min-h-screen bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
-      <h1 className="text-2xl font-bold text-white">Session Stats</h1>
+      <div>
+        <h1 className="text-2xl font-bold text-white">Stats</h1>
+        <p className="text-xs text-gray-500 mt-1">
+          {user ? 'All-time · synced to your account' : 'This session only · sign in to persist'}
+        </p>
+      </div>
 
-      {total === 0 ? (
+      {isLoading ? (
+        <div className="text-gray-400 animate-pulse text-center py-12">Loading…</div>
+      ) : total === 0 ? (
         <p className="text-gray-500">No scenarios played yet. Go play some hands!</p>
       ) : (
         <>
@@ -58,7 +66,8 @@ export function StatsPage() {
 
       <button
         onClick={handleReset}
-        className="bg-red-900 hover:bg-red-800 text-red-300 font-semibold py-4 rounded-lg transition-colors text-base"
+        disabled={total === 0}
+        className="bg-red-900 hover:bg-red-800 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-red-300 font-semibold py-4 rounded-lg transition-colors text-base"
       >
         Reset session
       </button>

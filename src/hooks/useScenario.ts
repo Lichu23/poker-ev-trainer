@@ -10,6 +10,8 @@ import {
 } from '@/lib/evCalculator'
 import { getFoldFrequency } from '@/data/villainProfiles'
 import { saveResult } from '@/lib/sessionStorage'
+import { useAuth } from '@/hooks/useAuth'
+import { supabase } from '@/lib/supabase'
 
 type Phase = 'decision' | 'result'
 
@@ -78,6 +80,7 @@ interface UseScenarioReturn {
 }
 
 export function useScenario(scenario: Scenario): UseScenarioReturn {
+  const { user } = useAuth()
   const [phase, setPhase] = useState<Phase>('decision')
   const [result, setResult] = useState<ScenarioResult | null>(null)
 
@@ -102,6 +105,21 @@ export function useScenario(scenario: Scenario): UseScenarioReturn {
     }
 
     saveResult(r)
+
+    if (user) {
+      supabase.from('results').insert({
+        user_id: user.id,
+        scenario_id: scenario.id,
+        player_action: action,
+        ev_chosen: evChosen,
+        ev_optimal: evOptimal,
+        ev_lost: evLost,
+        is_correct: isCorrect,
+      }).then(({ error }) => {
+        if (error) console.error('Failed to save result to DB:', error)
+      })
+    }
+
     setResult(r)
     setPhase('result')
   }
