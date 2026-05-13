@@ -7,6 +7,7 @@ async function fetchScenarios(): Promise<Scenario[]> {
     .from('scenarios')
     .select('*')
     .order('id')
+    .limit(5000)
 
   if (error) throw new Error(error.message)
   return (data ?? []).map(rowToScenario)
@@ -16,7 +17,7 @@ export function useScenarios() {
   return useQuery<Scenario[]>({
     queryKey: ['scenarios'],
     queryFn: fetchScenarios,
-    staleTime: Infinity, // scenarios never change at runtime
-    gcTime: Infinity,   // keep in memory for the entire session
+    staleTime: 1000 * 60 * 5,
+    gcTime: Infinity,
   })
 }

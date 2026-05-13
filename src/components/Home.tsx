@@ -8,7 +8,7 @@ import { supabase } from '@/lib/supabase'
 import { computeRank } from '@/lib/rankCalculator'
 import { computeLevel } from '@/lib/xpCalculator'
 import { signOut } from '@/lib/auth'
-import type { Difficulty, HandCategory } from '@/types/poker'
+import type { Difficulty, HandCategory, Street } from '@/types/poker'
 
 const ALL = 'all'
 
@@ -39,11 +39,13 @@ export function Home() {
   const { data: scenarios, isLoading, isError } = useScenarios()
   const [difficulty, setDifficulty] = useState<typeof ALL | Difficulty>(ALL)
   const [category, setCategory] = useState<typeof ALL | HandCategory>(ALL)
+  const [street, setStreet] = useState<typeof ALL | Street>(ALL)
 
   const filtered = (scenarios ?? []).filter((s) => {
     const diffOk = difficulty === ALL || s.difficulty === difficulty
     const catOk = category === ALL || s.handCategory === category
-    return diffOk && catOk
+    const streetOk = street === ALL || s.street === street
+    return diffOk && catOk && streetOk
   })
 
   function dealHand() {
@@ -52,7 +54,7 @@ export function Home() {
     navigate({
       to: '/scenario/$id',
       params: { id: String(pick.id) },
-      search: { difficulty, category },
+      search: { difficulty, category, street },
     })
   }
 
@@ -61,7 +63,7 @@ export function Home() {
       <div className="w-full flex flex-col gap-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-white  mb-2">Poker EV Trainer</h1>
-          <p className="text-gray-400 text-base">Make the highest-EV decision on every river spot.</p>
+          <p className="text-gray-400 text-base">Make the highest-EV decision on every street.</p>
 
           {user && (profileLoading || rankLoading) && (
             <div className="mt-4 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 flex flex-col gap-2 animate-pulse">
@@ -104,22 +106,43 @@ export function Home() {
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col gap-1">
-            <label className="text-xs text-gray-500 uppercase tracking-wide px-1">Difficulty</label>
-            <div className="relative">
-              <select
-                value={difficulty}
-                onChange={(e) => setDifficulty(e.target.value as typeof ALL | Difficulty)}
-                className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
-              >
-                <option value="all">All difficulties</option>
-                <option value="beginner">Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-              </select>
-              <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
+          <div className="flex gap-3">
+            <div className="flex flex-col gap-1 flex-1">
+              <label className="text-xs text-gray-500 uppercase tracking-wide px-1">Street</label>
+              <div className="relative">
+                <select
+                  value={street}
+                  onChange={(e) => setStreet(e.target.value as typeof ALL | Street)}
+                  className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
+                >
+                  <option value="all">All streets</option>
+                  <option value="flop">Flop</option>
+                  <option value="turn">Turn</option>
+                  <option value="river">River</option>
+                </select>
+                <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
+            </div>
+
+            <div className="flex flex-col gap-1 flex-1">
+              <label className="text-xs text-gray-500 uppercase tracking-wide px-1">Difficulty</label>
+              <div className="relative">
+                <select
+                  value={difficulty}
+                  onChange={(e) => setDifficulty(e.target.value as typeof ALL | Difficulty)}
+                  className="w-full bg-surface-2 border border-surface-3 text-white text-base rounded-xl pl-4 pr-10 py-4 focus:outline-none focus:border-white/30 appearance-none cursor-pointer"
+                >
+                  <option value="all">All</option>
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate">Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+                <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+              </div>
             </div>
           </div>
 
@@ -137,6 +160,8 @@ export function Home() {
                 <option value="marginal">Marginal</option>
                 <option value="bluff_catcher">Bluff catcher</option>
                 <option value="air">Air (bluff spots)</option>
+                <option value="draw">Drawing hand</option>
+                <option value="combo_draw">Combo draw</option>
               </select>
               <svg className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />

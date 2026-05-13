@@ -6,7 +6,7 @@ const routeApi = getRouteApi('/scenario/$id')
 
 export function ScenarioPage() {
   const { id } = routeApi.useParams()
-  const { difficulty, category } = routeApi.useSearch()
+  const { difficulty, category, street } = routeApi.useSearch()
   const navigate = useNavigate()
   const { data: scenarios, isLoading } = useScenarios()
 
@@ -41,7 +41,8 @@ export function ScenarioPage() {
     const pool = all.filter((s) => {
       const diffOk = difficulty === 'all' || s.difficulty === difficulty
       const catOk = category === 'all' || s.handCategory === category
-      return diffOk && catOk && s.id !== Number(id)
+      const streetOk = street === 'all' || s.street === street
+      return diffOk && catOk && streetOk && s.id !== Number(id)
     })
     if (pool.length === 0) {
       navigate({ to: '/lobby' })
@@ -51,7 +52,7 @@ export function ScenarioPage() {
     navigate({
       to: '/scenario/$id',
       params: { id: String(next.id) },
-      search: { difficulty, category },
+      search: { difficulty, category, street },
     })
   }
 
