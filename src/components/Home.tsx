@@ -6,6 +6,7 @@ import { useAuth } from '@/hooks/useAuth'
 import { useProfile } from '@/hooks/useProfile'
 import { supabase } from '@/lib/supabase'
 import { computeRank } from '@/lib/rankCalculator'
+import { computeLevel } from '@/lib/xpCalculator'
 import { signOut } from '@/lib/auth'
 import type { Difficulty, HandCategory } from '@/types/poker'
 
@@ -61,30 +62,46 @@ export function Home() {
           <h1 className="text-4xl font-bold text-green-400 mb-2">Poker EV Trainer</h1>
           <p className="text-gray-400 text-base">Make the highest-EV decision on every river spot.</p>
 
-          {profile && (
-            <div className="mt-3 flex items-center justify-center gap-3">
-              <div className="flex items-center gap-2 bg-gray-900 border border-gray-800 rounded-full px-4 py-1.5">
-                <span className="text-gray-300 text-sm font-medium">{profile.display_name}</span>
-                <span className="text-gray-600">·</span>
-                <span className="text-green-400 text-sm font-semibold">
-                  {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
-                  Lv.{profile.level ?? 1}
-                </span>
-                {rank && (
-                  <>
-                    <span className="text-gray-600">·</span>
-                    <span className="text-sm">{rank.badge} {rank.name}</span>
-                  </>
-                )}
+          {profile && (() => {
+            const levelInfo = computeLevel(profile.xp ?? 0)
+            return (
+              <div className="mt-4 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 flex flex-col gap-2 text-left">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <span className="text-white font-semibold text-sm">{profile.display_name}</span>
+                    {rank && (
+                      <span className="text-xs text-gray-400 bg-gray-800 rounded-full px-2 py-0.5">
+                        {rank.badge} {rank.name}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-green-400 text-sm font-bold">
+                    {(profile.prestige ?? 0) > 0 && <span className="text-yellow-400 mr-0.5">★</span>}
+                    Lv.{profile.level ?? 1}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <div className="flex-1 bg-gray-700 rounded-full h-2 overflow-hidden">
+                    <div
+                      className="h-full bg-green-500 rounded-full transition-all duration-500"
+                      style={{ width: `${levelInfo.progressPct}%` }}
+                    />
+                  </div>
+                  <span className="text-xs text-gray-500 shrink-0 font-mono">
+                    {levelInfo.currentXP}/{levelInfo.xpForNext} XP
+                  </span>
+                </div>
+
+                <button
+                  onClick={() => signOut()}
+                  className="text-xs text-gray-600 hover:text-gray-400 transition-colors self-end"
+                >
+                  Sign out
+                </button>
               </div>
-              <button
-                onClick={() => signOut()}
-                className="text-xs text-gray-600 hover:text-gray-400 transition-colors"
-              >
-                Sign out
-              </button>
-            </div>
-          )}
+            )
+          })()}
         </div>
 
         <div className="flex flex-col gap-4">

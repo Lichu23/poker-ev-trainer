@@ -88,43 +88,33 @@ export function LeaderboardPage() {
 
       {rows.length > 0 && (
         <div className="bg-gray-900 rounded-xl overflow-hidden">
-          <div className="grid grid-cols-[2rem_1fr_3rem_3.5rem_3.5rem_3.5rem] gap-x-2 px-4 py-3 border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wide">
-            <span>#</span>
-            <span>Name</span>
-            <span className="text-right">Lvl</span>
-            <span className="text-right">Hands</span>
-            <span className="text-right">Corr</span>
-            <span className="text-right">AvgEV</span>
+          <div className="flex items-center gap-3 px-4 py-2 border-b border-gray-800 text-xs text-gray-500 uppercase tracking-wide">
+            <span className="w-4 shrink-0">#</span>
+            <span className="flex-1">Player</span>
+            <span className="shrink-0 w-8 text-right">Corr</span>
+            <span className="shrink-0 w-12 text-right">Avg EV</span>
           </div>
-
           {rows.map((row, i) => {
             const isMe = row.user_id === user?.id
             const rank = computeRank(Number(row.avg_ev_lost), row.total_hands)
             return (
               <div
                 key={row.user_id}
-                className={`grid grid-cols-[2rem_1fr_3rem_3.5rem_3.5rem_3.5rem] gap-x-2 px-4 py-3 border-b border-gray-800 last:border-0 text-sm transition-colors ${
-                  isMe ? 'bg-green-950 text-green-300' : 'text-gray-300'
+                className={`flex items-center gap-3 px-4 py-3 border-b border-gray-800 last:border-0 ${
+                  isMe ? 'bg-green-950' : ''
                 }`}
               >
-                <span className="text-gray-500 font-mono">{i + 1}</span>
-                <div className="min-w-0">
-                  <div className="font-medium truncate">
+                <span className="text-gray-600 text-sm w-4 shrink-0">{i + 1}</span>
+                <div className="flex-1 min-w-0">
+                  <span className={`text-sm font-medium truncate ${isMe ? 'text-green-300' : 'text-white'}`}>
                     {row.display_name}
-                    {isMe && <span className="text-green-400 ml-1 text-xs">you</span>}
-                  </div>
-                  {rank && (
-                    <div className="text-xs text-gray-500">{rank.badge} {rank.name}</div>
-                  )}
+                  </span>
+                  {rank && <span className="text-gray-500 text-xs ml-2">{rank.badge}</span>}
                 </div>
-                <span className="text-right text-green-400 font-mono text-xs self-center">
-                  {row.prestige > 0 && <span className="text-yellow-400">★</span>}{row.level}
-                </span>
-                <span className="text-right text-gray-400 self-center">{row.total_hands}</span>
-                <span className={`text-right font-mono self-center ${row.correct_pct >= 70 ? 'text-green-400' : row.correct_pct >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
+                <span className={`text-sm font-mono shrink-0 ${row.correct_pct >= 70 ? 'text-green-400' : row.correct_pct >= 50 ? 'text-yellow-400' : 'text-red-400'}`}>
                   {row.correct_pct}%
                 </span>
-                <span className="text-right font-mono text-red-400 self-center">
+                <span className="text-sm font-mono text-red-400 shrink-0">
                   ${Number(row.avg_ev_lost).toFixed(1)}
                 </span>
               </div>

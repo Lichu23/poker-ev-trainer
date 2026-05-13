@@ -38,12 +38,12 @@ export function StatsPage() {
         <>
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-gray-900 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold text-white">{total}</div>
+              <div className="text-2xl font-bold text-white">{total}</div>
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Played</div>
             </div>
             <div className="bg-gray-900 rounded-xl p-4 text-center">
               <div
-                className={`text-3xl font-bold ${
+                className={`text-2xl font-bold ${
                   pct >= 70 ? 'text-green-400' : pct >= 50 ? 'text-yellow-400' : 'text-red-400'
                 }`}
               >
@@ -52,7 +52,9 @@ export function StatsPage() {
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Correct</div>
             </div>
             <div className="bg-gray-900 rounded-xl p-4 text-center">
-              <div className="text-3xl font-bold text-red-400">-{Math.abs(totalEVLost).toFixed(1)}</div>
+              <div className="text-2xl font-bold text-red-400 leading-tight">
+                -{totalEVLost >= 100 ? Math.round(Math.abs(totalEVLost)) : Math.abs(totalEVLost).toFixed(1)}
+              </div>
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">EV Lost</div>
             </div>
           </div>
