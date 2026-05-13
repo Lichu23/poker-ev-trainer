@@ -50,7 +50,7 @@ export function LeaderboardPage() {
   const needsMoreHands = myHandCount < MIN_HANDS
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
+    <div className="min-h-full bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <h1 className="text-2xl font-bold text-white">Leaderboard</h1>
       <p className="text-gray-500 text-sm -mt-4">Ranked by avg EV lost · min 20 hands to appear</p>
 

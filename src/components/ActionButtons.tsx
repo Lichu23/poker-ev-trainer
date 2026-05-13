@@ -48,7 +48,7 @@ export function ActionButtons({ actions, pot, villainBetAmount, onAction }: Prop
           <button
             key={action}
             onClick={() => onAction(action)}
-            className={`${ACTION_STYLES[action]} text-white text-base px-5 py-4 rounded-lg font-semibold min-w-[120px] transition-colors`}
+            className={`${ACTION_STYLES[action]} text-white text-base px-5 py-4 rounded-lg font-semibold min-w-[120px] transition-colors active:scale-95 active:opacity-80`}
           >
             <div>{label}</div>
             {sub && <div className="text-xs opacity-75">{sub}</div>}

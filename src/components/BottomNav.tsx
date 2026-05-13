@@ -5,10 +5,10 @@ import { signInWithGoogle } from '@/lib/auth'
 
 function SignInModal({ onClose }: { onClose: () => void }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={onClose}>
+    <div className="fixed inset-0 z-50 flex items-end justify-center animate-fade-in" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60" />
       <div
-        className="relative w-full max-w-md bg-gray-900 border border-gray-800 rounded-t-2xl px-6 pt-6 pb-10 flex flex-col gap-4"
+        className="relative w-full max-w-md bg-gray-900 border border-gray-800 rounded-t-2xl px-6 pt-6 pb-10 flex flex-col gap-4 animate-slide-up"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-lg font-bold text-white text-center">Sign in to access the Leaderboard</h2>
@@ -29,7 +29,7 @@ function SignInModal({ onClose }: { onClose: () => void }) {
         </button>
         <button
           onClick={onClose}
-          className="text-gray-500 hover:text-gray-300 text-sm text-center transition-colors"
+          className="text-gray-500 hover:text-gray-300 text-sm text-center transition-colors min-h-[44px] w-full flex items-center justify-center"
         >
           Maybe later
         </button>
@@ -56,7 +56,7 @@ export function BottomNav() {
     <>
       {showSignInModal && <SignInModal onClose={() => setShowSignInModal(false)} />}
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 flex z-40">
+      <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 flex z-40" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
         <button
           onClick={() => navigate({ to: '/lobby' })}
           className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
