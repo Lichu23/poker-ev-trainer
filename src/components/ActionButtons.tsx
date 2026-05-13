@@ -1,4 +1,4 @@
-import type { PlayerAction } from '@/types/poker'
+﻿import type { PlayerAction } from '@/types/poker'
 import { raiseAmountFromBet } from '@/lib/evCalculator'
 
 interface Props {
@@ -23,7 +23,7 @@ function getLabel(
     case 'bet_pot':       return { label: `Bet $${pot}`, sub: 'pot' }
     case 'raise': {
       const raiseAmt = raiseAmountFromBet(villainBetAmount ?? 0)
-      return { label: `Raise to $${raiseAmt}`, sub: '2.5× bet' }
+      return { label: `Raise to $${raiseAmt}`, sub: '2.5x bet' }
     }
   }
 }
