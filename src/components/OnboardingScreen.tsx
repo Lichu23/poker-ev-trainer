@@ -31,14 +31,14 @@ export function OnboardingScreen() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+      <div className="min-h-full bg-gray-950 flex items-center justify-center">
         <div className="text-gray-400 animate-pulse">Loading…</div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center px-6 max-w-md mx-auto">
+    <div className="min-h-full bg-gray-950 text-white flex flex-col items-center justify-center px-6 max-w-md mx-auto">
       {/* Hero: board + hand */}
       <div className="flex flex-col items-center gap-3 mb-8">
         <div className="flex gap-2">

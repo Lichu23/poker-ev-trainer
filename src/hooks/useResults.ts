@@ -42,6 +42,7 @@ export function useResults(user: User | null) {
       return (data ?? []).map(dbRowToResult)
     },
     staleTime: 1000 * 30,
+    placeholderData: (prev) => prev,
   })
 }
 

@@ -22,7 +22,7 @@ export function StatsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
+    <div className="min-h-full bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Stats</h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -39,7 +39,7 @@ export function StatsPage() {
           <div className="grid grid-cols-3 gap-4">
             <div className="bg-gray-900 rounded-xl p-4 text-center">
               <div className="text-2xl font-bold text-white">{total}</div>
-              <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Played</div>
+              <div className="text-xs text-gray-400 mt-1 uppercase tracking-wide">Played</div>
             </div>
             <div className="bg-gray-900 rounded-xl p-4 text-center">
               <div
@@ -49,13 +49,13 @@ export function StatsPage() {
               >
                 {pct}%
               </div>
-              <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Correct</div>
+              <div className="text-xs text-gray-400 mt-1 uppercase tracking-wide">Correct</div>
             </div>
             <div className="bg-gray-900 rounded-xl p-4 text-center">
               <div className="text-2xl font-bold text-red-400 leading-tight">
                 -{totalEVLost >= 100 ? Math.round(Math.abs(totalEVLost)) : Math.abs(totalEVLost).toFixed(1)}
               </div>
-              <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">EV Lost</div>
+              <div className="text-xs text-gray-400 mt-1 uppercase tracking-wide">EV Lost</div>
             </div>
           </div>
 

@@ -45,7 +45,7 @@ function AuthCallback() {
   }, [navigate])
 
   return (
-    <div className="min-h-screen bg-gray-950 flex items-center justify-center">
+    <div className="min-h-full bg-gray-950 flex items-center justify-center">
       <div className="text-gray-400 animate-pulse">Signing in…</div>
     </div>
   )
