@@ -21,6 +21,6 @@ export const RANK_TIERS: RankTier[] = [
 ]
 
 export function computeRank(avgEvLost: number, totalHands: number): RankTier | null {
-  if (totalHands < 20) return null
+  if (totalHands < 10) return null
   return RANK_TIERS.find(t => avgEvLost < t.maxEvLost) ?? RANK_TIERS[RANK_TIERS.length - 1]
 }

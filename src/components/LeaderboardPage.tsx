@@ -13,7 +13,7 @@ interface LeaderboardRow {
   prestige: number
 }
 
-const MIN_HANDS = 20
+const MIN_HANDS = 10
 
 function useLeaderboard() {
   return useQuery({
@@ -52,7 +52,7 @@ export function LeaderboardPage() {
   return (
     <div className="min-h-full bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <h1 className="text-2xl font-bold text-white">Leaderboard</h1>
-      <p className="text-gray-500 text-sm -mt-4">Ranked by avg EV lost · min 20 hands to appear</p>
+      <p className="text-gray-500 text-sm -mt-4">Ranked by avg EV lost · min 10 hands to appear</p>
 
       {needsMoreHands && (
         <div className="bg-surface-1 rounded-xl p-4 flex flex-col gap-2">
