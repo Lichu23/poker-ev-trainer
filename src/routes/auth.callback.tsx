@@ -20,6 +20,7 @@ function AuthCallback() {
           { user_id: user.id, display_name: displayName },
           { onConflict: 'user_id', ignoreDuplicates: true }
         )
+        localStorage.removeItem('guest-mode')
       } else {
         const code = new URL(window.location.href).searchParams.get('code')
         if (code) {

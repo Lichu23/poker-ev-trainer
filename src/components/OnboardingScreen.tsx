@@ -59,7 +59,7 @@ export function OnboardingScreen() {
       {/* CTAs */}
       <div className="w-full flex flex-col gap-3">
         <button
-          onClick={() => navigate({ to: '/lobby' })}
+          onClick={() => { localStorage.setItem('guest-mode', 'true'); navigate({ to: '/lobby' }) }}
           className="w-full bg-white hover:bg-zinc-100 active:bg-zinc-200 text-black font-bold text-base rounded-xl h-14 transition-all "
         >
           Play as Guest
