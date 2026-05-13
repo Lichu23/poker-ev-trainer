@@ -1,4 +1,4 @@
-import type { Scenario } from '@/types/poker'
+﻿import type { Scenario } from '@/types/poker'
 import { CardDisplay } from './CardDisplay'
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
 }
 
 const DIFFICULTY_STYLES = {
-  beginner:     'bg-green-900 text-green-300',
+  beginner:     'bg-brand-900 text-brand-300',
   intermediate: 'bg-yellow-900 text-yellow-300',
   advanced:     'bg-red-900 text-red-300',
 }
@@ -15,7 +15,7 @@ const DIFFICULTY_STYLES = {
 const CATEGORY_STYLES = {
   nuts:          'bg-purple-900 text-purple-300',
   strong_value:  'bg-blue-900 text-blue-300',
-  marginal:      'bg-gray-700 text-gray-300',
+  marginal:      'bg-surface-3 text-gray-300',
   bluff_catcher: 'bg-orange-900 text-orange-300',
   air:           'bg-pink-900 text-pink-300',
 }
@@ -26,7 +26,7 @@ export function ScenarioCard({ scenario, onClick }: Props) {
   return (
     <button
       onClick={onClick}
-      className="bg-gray-800 hover:bg-gray-700 border border-gray-700 hover:border-gray-500 rounded-xl p-4 text-left w-full transition-colors flex flex-col gap-3"
+      className="bg-surface-2 hover:bg-surface-3 border border-surface-3 hover:border-gray-500 rounded-xl p-4 text-left w-full transition-colors flex flex-col gap-3"
     >
       <div className="flex items-start justify-between gap-2">
         <span className="text-white font-semibold text-base leading-snug">{title}</span>

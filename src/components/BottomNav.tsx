@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { useNavigate, useRouterState } from '@tanstack/react-router'
 import { useAuth } from '@/hooks/useAuth'
 import { signInWithGoogle } from '@/lib/auth'
@@ -8,7 +8,7 @@ function SignInModal({ onClose }: { onClose: () => void }) {
     <div className="fixed inset-0 z-50 flex items-end justify-center" onClick={onClose}>
       <div className="absolute inset-0 bg-black/60" />
       <div
-        className="relative w-full max-w-md bg-gray-900 border border-gray-800 rounded-t-2xl px-6 pt-6 pb-10 flex flex-col gap-4"
+        className="relative w-full max-w-md bg-surface-1 border border-surface-3 rounded-t-2xl px-6 pt-6 pb-10 flex flex-col gap-4"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="text-lg font-bold text-white text-center">Sign in to access the Leaderboard</h2>
@@ -17,7 +17,7 @@ function SignInModal({ onClose }: { onClose: () => void }) {
         </p>
         <button
           onClick={() => signInWithGoogle()}
-          className="w-full bg-gray-800 hover:bg-gray-700 border border-gray-700 text-white font-semibold text-base rounded-xl py-4 transition-colors flex items-center justify-center gap-3"
+          className="w-full bg-surface-1 hover:bg-surface-2 border border-surface-3 text-white font-semibold text-base rounded-xl h-14 transition-colors flex items-center justify-center gap-3"
         >
           <svg className="w-5 h-5 shrink-0" viewBox="0 0 24 24">
             <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
@@ -56,11 +56,11 @@ export function BottomNav() {
     <>
       {showSignInModal && <SignInModal onClose={() => setShowSignInModal(false)} />}
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 flex z-40">
+      <nav className="fixed bottom-0 left-0 right-0 bg-surface-0 border-t border-surface-3 flex z-40">
         <button
           onClick={() => navigate({ to: '/lobby' })}
           className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-            isHome ? 'text-green-400' : 'text-gray-500 hover:text-gray-300'
+            isHome ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'
           }`}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -72,7 +72,7 @@ export function BottomNav() {
         <button
           onClick={() => navigate({ to: '/stats' })}
           className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-            isStats ? 'text-green-400' : 'text-gray-500 hover:text-gray-300'
+            isStats ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'
           }`}
         >
           <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
@@ -85,7 +85,7 @@ export function BottomNav() {
           <button
             onClick={() => navigate({ to: '/leaderboard' })}
             className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-              isLeaderboard ? 'text-green-400' : 'text-gray-500 hover:text-gray-300'
+              isLeaderboard ? 'text-brand-400' : 'text-gray-500 hover:text-gray-300'
             }`}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">

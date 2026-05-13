@@ -1,4 +1,4 @@
-import type { PlayerAction } from '@/types/poker'
+﻿import type { PlayerAction } from '@/types/poker'
 import { raiseAmountFromBet } from '@/lib/evCalculator'
 
 interface Props {
@@ -29,12 +29,12 @@ function getLabel(
 }
 
 const ACTION_STYLES: Record<PlayerAction, string> = {
-  fold:           'bg-gray-700 hover:bg-gray-600',
+  fold:           'bg-surface-3 hover:bg-gray-600',
   check:          'bg-blue-700 hover:bg-blue-600',
   call:           'bg-blue-700 hover:bg-blue-600',
-  bet_third:      'bg-green-700 hover:bg-green-600',
-  bet_half:       'bg-green-700 hover:bg-green-600',
-  bet_two_thirds: 'bg-green-700 hover:bg-green-600',
+  bet_third:      'bg-brand-700 hover:bg-brand-600',
+  bet_half:       'bg-brand-700 hover:bg-brand-600',
+  bet_two_thirds: 'bg-brand-700 hover:bg-brand-600',
   bet_pot:        'bg-yellow-600 hover:bg-yellow-500',
   raise:          'bg-red-700 hover:bg-red-600',
 }

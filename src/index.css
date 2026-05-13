@@ -1,5 +1,59 @@
 @import "tailwindcss";
 
-html, body {
-  background-color: #030712; /* gray-950 */
+/* ── Design tokens ─────────────────────────────── */
+@theme {
+  --font-sans: 'Poppins', system-ui, sans-serif;
+
+  /* Brand — teal/neon */
+  --color-brand-50:  #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-300: #5eead4;
+  --color-brand-400: #2dd4bf;
+  --color-brand-500: #14b8a6;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-900: #042f2e;
+  --color-brand-950: #021a18;
+
+  /* Surfaces — slate (cool dark with slight blue tint) */
+  --color-surface-0: #020617;   /* deepest bg */
+  --color-surface-1: #0f172a;   /* cards, panels */
+  --color-surface-2: #1e293b;   /* inputs, elevated */
+  --color-surface-3: #334155;   /* borders */
 }
+
+/* ── Base ──────────────────────────────────────── */
+html, body {
+  background-color: #020617;
+  font-family: 'Poppins', system-ui, sans-serif;
+}
+
+/* ── Neon effects ──────────────────────────────── */
+.neon-glow {
+  box-shadow: 0 0 24px rgba(20, 184, 166, 0.35), 0 0 60px rgba(20, 184, 166, 0.1);
+}
+
+.neon-text {
+  text-shadow: 0 0 24px rgba(20, 184, 166, 0.7);
+}
+
+/* ── Page transition ───────────────────────────── */
+@keyframes page-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-page-in {
+  animation: page-in 180ms ease-out forwards;
+}
+
+/* ── Sheet animation ───────────────────────────── */
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-slide-up { animation: slide-up 280ms cubic-bezier(0.32, 0.72, 0, 1); }
+.animate-fade-in  { animation: fade-in 200ms ease-out; }

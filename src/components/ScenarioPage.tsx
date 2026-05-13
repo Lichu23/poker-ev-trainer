@@ -1,4 +1,4 @@
-import { getRouteApi, useNavigate } from '@tanstack/react-router'
+﻿import { getRouteApi, useNavigate } from '@tanstack/react-router'
 import { useScenarios } from '@/hooks/useScenarios'
 import { ScenarioView } from './ScenarioView'
 
@@ -12,7 +12,7 @@ export function ScenarioPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-surface-0 text-white flex items-center justify-center">
         <div className="text-gray-400 animate-pulse">Loading scenario…</div>
       </div>
     )
@@ -23,12 +23,12 @@ export function ScenarioPage() {
 
   if (!scenario) {
     return (
-      <div className="min-h-screen bg-gray-950 text-white flex items-center justify-center">
+      <div className="min-h-screen bg-surface-0 text-white flex items-center justify-center">
         <div className="text-center">
           <div className="text-gray-400 mb-4">Scenario not found.</div>
           <button
             onClick={() => navigate({ to: '/lobby' })}
-            className="text-green-400 underline underline-offset-4"
+            className="text-brand-400 underline underline-offset-4"
           >
             ← Back
           </button>

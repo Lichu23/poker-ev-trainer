@@ -1,4 +1,4 @@
-import { useAuth } from '@/hooks/useAuth'
+﻿import { useAuth } from '@/hooks/useAuth'
 import { useResults, useResetResults } from '@/hooks/useResults'
 import { useScenarios } from '@/hooks/useScenarios'
 import { CategoryRow } from './CategoryRow'
@@ -22,7 +22,7 @@ export function StatsPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
+    <div className="min-h-screen bg-surface-0 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold text-white">Stats</h1>
         <p className="text-xs text-gray-500 mt-1">
@@ -37,21 +37,21 @@ export function StatsPage() {
       ) : (
         <>
           <div className="grid grid-cols-3 gap-4">
-            <div className="bg-gray-900 rounded-xl p-4 text-center">
+            <div className="bg-surface-1 rounded-xl p-4 text-center">
               <div className="text-2xl font-bold text-white">{total}</div>
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Played</div>
             </div>
-            <div className="bg-gray-900 rounded-xl p-4 text-center">
+            <div className="bg-surface-1 rounded-xl p-4 text-center">
               <div
                 className={`text-2xl font-bold ${
-                  pct >= 70 ? 'text-green-400' : pct >= 50 ? 'text-yellow-400' : 'text-red-400'
+                  pct >= 70 ? 'text-brand-400' : pct >= 50 ? 'text-yellow-400' : 'text-red-400'
                 }`}
               >
                 {pct}%
               </div>
               <div className="text-xs text-gray-500 mt-1 uppercase tracking-wide">Correct</div>
             </div>
-            <div className="bg-gray-900 rounded-xl p-4 text-center">
+            <div className="bg-surface-1 rounded-xl p-4 text-center">
               <div className="text-2xl font-bold text-red-400 leading-tight">
                 -{totalEVLost >= 100 ? Math.round(Math.abs(totalEVLost)) : Math.abs(totalEVLost).toFixed(1)}
               </div>
@@ -59,7 +59,7 @@ export function StatsPage() {
             </div>
           </div>
 
-          <div className="bg-gray-900 rounded-xl p-4 flex flex-col gap-3">
+          <div className="bg-surface-1 rounded-xl p-4 flex flex-col gap-3">
             <div className="text-base font-semibold text-gray-300 mb-1">Breakdown by category</div>
             {CATEGORIES.map((cat) => (
               <CategoryRow key={cat} category={cat} results={results} scenarios={scenarios} />
@@ -71,7 +71,7 @@ export function StatsPage() {
       <button
         onClick={handleReset}
         disabled={total === 0}
-        className="bg-red-900 hover:bg-red-800 disabled:bg-gray-800 disabled:text-gray-600 disabled:cursor-not-allowed text-red-300 font-semibold py-4 rounded-lg transition-colors text-base"
+        className="bg-red-900 hover:bg-red-800 disabled:bg-surface-2 disabled:text-gray-600 disabled:cursor-not-allowed text-red-300 font-semibold py-4 rounded-lg transition-colors text-base"
       >
         Reset session
       </button>

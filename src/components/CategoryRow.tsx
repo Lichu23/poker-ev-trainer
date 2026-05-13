@@ -1,4 +1,4 @@
-import type { HandCategory, ScenarioResult, Scenario } from '@/types/poker'
+﻿import type { HandCategory, ScenarioResult, Scenario } from '@/types/poker'
 
 interface Props {
   category: HandCategory
@@ -20,9 +20,9 @@ export function CategoryRow({ category, results, scenarios }: Props) {
   return (
     <div className="flex items-center gap-3">
       <span className="text-gray-400 text-base w-28 shrink-0 capitalize">{category.replace('_', ' ')}</span>
-      <div className="flex-1 bg-gray-700 rounded-full h-3 overflow-hidden">
+      <div className="flex-1 bg-surface-3 rounded-full h-3 overflow-hidden">
         <div
-          className={`h-full rounded-full ${pct >= 70 ? 'bg-green-500' : pct >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
+          className={`h-full rounded-full ${pct >= 70 ? 'bg-brand-500' : pct >= 50 ? 'bg-yellow-500' : 'bg-red-500'}`}
           style={{ width: `${pct}%` }}
         />
       </div>
