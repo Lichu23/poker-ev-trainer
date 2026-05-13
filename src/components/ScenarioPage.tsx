@@ -27,7 +27,7 @@ export function ScenarioPage() {
         <div className="text-center">
           <div className="text-gray-400 mb-4">Scenario not found.</div>
           <button
-            onClick={() => navigate({ to: '/' })}
+            onClick={() => navigate({ to: '/lobby' })}
             className="text-green-400 underline underline-offset-4"
           >
             ← Back
@@ -44,7 +44,7 @@ export function ScenarioPage() {
       return diffOk && catOk && s.id !== Number(id)
     })
     if (pool.length === 0) {
-      navigate({ to: '/' })
+      navigate({ to: '/lobby' })
       return
     }
     const next = pool[Math.floor(Math.random() * pool.length)]

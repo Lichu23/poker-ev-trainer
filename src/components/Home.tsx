@@ -28,7 +28,7 @@ export function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white flex flex-col items-center justify-center px-4 pb-20 max-w-xl mx-auto">
+    <div className="h-full bg-gray-950 text-white flex flex-col items-center justify-center px-4 max-w-xl mx-auto">
       <div className="w-full flex flex-col gap-8">
         <div className="text-center">
           <h1 className="text-4xl font-bold text-green-400 mb-2">Poker EV Trainer</h1>
