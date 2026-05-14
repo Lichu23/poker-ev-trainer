@@ -17,6 +17,7 @@ export function signInWithGitHub() {
   })
 }
 
-export function signOut() {
-  return supabase.auth.signOut()
+export async function signOut() {
+  await supabase.auth.signOut()
+  window.location.href = '/'
 }
