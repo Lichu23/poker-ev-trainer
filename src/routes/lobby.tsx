@@ -1,12 +1,8 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { Home } from '@/components/Home'
-import { supabase } from '@/lib/supabase'
+import { requireAuth } from '@/lib/requireAuth'
 
 export const Route = createFileRoute('/lobby')({
-  beforeLoad: async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    const choseGuest = localStorage.getItem('guest-mode') === 'true'
-    if (!user && !choseGuest) throw redirect({ to: '/' })
-  },
+  beforeLoad: requireAuth,
   component: Home,
 })
