@@ -59,6 +59,7 @@ function useMyHandCount(userId: string | undefined) {
     },
     enabled: !!userId,
     staleTime: 1000 * 30,
+    placeholderData: (prev) => prev,
   })
 }
 
@@ -69,10 +70,10 @@ function RankBadge({ rank }: { rank: number }) {
 }
 
 export function LeaderboardPage() {
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const { data: rows = [], isLoading, isError } = useLeaderboard()
-  const { data: myHandCount = 0 } = useMyHandCount(user?.id)
-  const needsMoreHands = myHandCount < MIN_HANDS
+  const { data: myHandCount = 0, isLoading: handCountLoading } = useMyHandCount(user?.id)
+  const needsMoreHands = !authLoading && !handCountLoading && myHandCount < MIN_HANDS
 
   const MAX_SHOWN = 100
   const visibleRows = rows.slice(0, MAX_SHOWN)
