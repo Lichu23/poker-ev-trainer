@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "generate": "tsx scripts/generateScenarios.ts",
     "insert": "tsx --env-file=.env.local scripts/insertScenarios.ts",
-    "seed": "tsx --env-file=.env.local scripts/seedResults.ts"
+    "seed": "tsx --env-file=.env.local scripts/seedResults.ts",
+    "seed:demo": "tsx --env-file=.env.local scripts/seedDemoPlayers.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",

@@ -33,7 +33,7 @@ function useMyRank(userId: string | undefined) {
 
 export function Home() {
   const navigate = useNavigate()
-  const { user } = useAuth()
+  const { user, loading: authLoading } = useAuth()
   const { data: profile, isLoading: profileLoading } = useProfile(user)
   const { data: rank, isLoading: rankLoading } = useMyRank(user?.id)
   const { data: scenarios, isLoading, isError } = useScenarios()
@@ -65,24 +65,27 @@ export function Home() {
           <h1 className="text-4xl font-bold text-white  mb-2">Poker EV Trainer</h1>
           <p className="text-gray-400 text-base">Make the highest-EV decision on every street.</p>
 
-          {user && (profileLoading || rankLoading) && (
-            <div className="mt-4 bg-gray-900 border border-gray-800 rounded-2xl px-4 py-3 flex flex-col gap-2 animate-pulse">
-              <div className="flex justify-between">
-                <div className="h-4 bg-gray-700 rounded w-32" />
-                <div className="h-4 bg-gray-700 rounded w-10" />
+          {(authLoading || (user && profileLoading)) && (
+            <div className="mt-4 bg-surface-1 border border-surface-3 rounded-xl px-3 py-3 flex flex-col gap-2 animate-pulse">
+              <div className="flex justify-between items-center">
+                <div className="h-4 bg-surface-3 rounded w-32" />
+                <div className="h-4 bg-surface-3 rounded w-10" />
               </div>
-              <div className="h-2 bg-gray-700 rounded w-full" />
+              <div className="h-1.5 bg-surface-3 rounded-full w-full" />
             </div>
           )}
 
-          {profile && !profileLoading && (() => {
+          {user && profile && !profileLoading && (() => {
             const levelInfo = computeLevel(profile.xp ?? 0)
             return (
               <div className="mt-3 bg-surface-1 border border-surface-3 rounded-xl px-3 py-2 flex flex-col gap-1.5">
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-1.5 min-w-0">
                     <span className="text-white font-medium text-sm truncate">{profile.display_name}</span>
-                    {rank && <span className="text-xs text-zinc-500 shrink-0">{rank.badge} {rank.name}</span>}
+                    {rankLoading
+                      ? <div className="h-3 bg-surface-3 rounded w-16 animate-pulse" />
+                      : rank && <span className="text-xs text-zinc-500 shrink-0">{rank.badge} {rank.name}</span>
+                    }
                   </div>
                   <div className="flex items-center gap-3 shrink-0">
                     <span className="text-white text-xs font-semibold">

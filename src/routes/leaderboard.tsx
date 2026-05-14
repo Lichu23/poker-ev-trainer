@@ -1,11 +1,8 @@
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { LeaderboardPage } from '@/components/LeaderboardPage'
-import { supabase } from '@/lib/supabase'
+import { requireAuth } from '@/lib/requireAuth'
 
 export const Route = createFileRoute('/leaderboard')({
-  beforeLoad: async () => {
-    const { data: { user } } = await supabase.auth.getUser()
-    if (!user) throw redirect({ to: '/' })
-  },
+  beforeLoad: requireAuth,
   component: LeaderboardPage,
 })

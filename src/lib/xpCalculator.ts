@@ -40,9 +40,10 @@ export function computeXP(
   evLost: number,
   currentStreak: number,
 ): XPBreakdown {
+  if (!isCorrect) return { base: 0, correct: 0, precision: 0, streak: 0, total: 0 }
   const m = MULTIPLIER[difficulty]
   const base = 10 * m
-  const correct = isCorrect ? CORRECT_BONUS[difficulty] : 0
+  const correct = CORRECT_BONUS[difficulty]
   const precision = evLost < 2 ? PRECISION_BONUS[difficulty] : 0
   const streak = Math.min(currentStreak * 5, 25)
   return { base, correct, precision, streak, total: base + correct + precision + streak }
