@@ -1,8 +1,8 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { StatsPage } from '@/components/StatsPage'
-import { requireAuth } from '@/lib/requireAuth'
+import { requireAuthOrGuest } from '@/lib/requireAuth'
 
 export const Route = createFileRoute('/stats')({
-  beforeLoad: requireAuth,
+  beforeLoad: requireAuthOrGuest,
   component: StatsPage,
 })

@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { ScenarioPage } from '@/components/ScenarioPage'
-import { requireAuth } from '@/lib/requireAuth'
+import { requireAuthOrGuest } from '@/lib/requireAuth'
 
 export const Route = createFileRoute('/scenario/$id')({
-  beforeLoad: requireAuth,
+  beforeLoad: requireAuthOrGuest,
   component: ScenarioPage,
   validateSearch: (search: Record<string, unknown>) => ({
     difficulty: (search.difficulty as string) ?? 'all',
