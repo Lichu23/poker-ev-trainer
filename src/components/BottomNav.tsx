@@ -1,4 +1,4 @@
-﻿import { useState } from 'react'
+import { useState } from 'react'
 import { useNavigate, useRouterState } from '@tanstack/react-router'
 import { useAuth } from '@/hooks/useAuth'
 import { signInWithGoogle } from '@/lib/auth'
@@ -38,6 +38,24 @@ function SignInModal({ onClose }: { onClose: () => void }) {
   )
 }
 
+const ScenariosIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 2a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H6zm3 5h6M9 11h6M9 15h4" />
+  </svg>
+)
+
+const StatsIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+  </svg>
+)
+
+const RanksIcon = () => (
+  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12v6a6 6 0 01-12 0V3zm0 3H3a3 3 0 003 3m12-3h3a3 3 0 01-3 3M10 15v5m4-5v5M8 20h8" />
+  </svg>
+)
+
 export function BottomNav() {
   const navigate = useNavigate()
   const { location } = useRouterState()
@@ -52,55 +70,70 @@ export function BottomNav() {
 
   if (isOnboarding) return null
 
+  const navItemClass = (active: boolean) =>
+    `flex items-center gap-3 px-3 py-2.5 rounded-lg transition-colors text-sm font-medium w-full ${
+      active ? 'bg-surface-2 text-white' : 'text-gray-500 hover:text-gray-300 hover:bg-surface-1'
+    }`
+
+  const mobileItemClass = (active: boolean) =>
+    `flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
+      active ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
+    }`
+
   return (
     <>
       {showSignInModal && <SignInModal onClose={() => setShowSignInModal(false)} />}
 
-      <nav className="fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 flex z-40" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
-        <button
-          onClick={() => navigate({ to: '/lobby' })}
-          className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-            isHome ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
-          }`}
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 2a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V4a2 2 0 00-2-2H6zm3 5h6M9 11h6M9 15h4" />
-          </svg>
+      {/* ── Desktop sidebar ── */}
+      <nav className="hidden md:flex fixed left-0 top-0 h-screen w-56 bg-gray-900 border-r border-gray-800 flex-col z-40">
+        <div className="px-5 py-6 border-b border-gray-800">
+          <p className="text-white font-bold text-base leading-tight">Poker EV Trainer</p>
+          <p className="text-gray-600 text-xs mt-0.5">Make the best decision</p>
+        </div>
+
+        <div className="flex flex-col gap-1 p-3 flex-1">
+          <button onClick={() => navigate({ to: '/lobby' })} className={navItemClass(isHome)}>
+            <ScenariosIcon />
+            Scenarios
+          </button>
+          <button onClick={() => navigate({ to: '/stats' })} className={navItemClass(isStats)}>
+            <StatsIcon />
+            Stats
+          </button>
+          {user ? (
+            <button onClick={() => navigate({ to: '/leaderboard' })} className={navItemClass(isLeaderboard)}>
+              <RanksIcon />
+              Ranks
+            </button>
+          ) : (
+            <button onClick={() => setShowSignInModal(true)} className={navItemClass(false)}>
+              <RanksIcon />
+              Ranks
+            </button>
+          )}
+        </div>
+      </nav>
+
+      {/* ── Mobile bottom bar ── */}
+      <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-gray-900 border-t border-gray-800 flex z-40" style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}>
+        <button onClick={() => navigate({ to: '/lobby' })} className={mobileItemClass(isHome)}>
+          <ScenariosIcon />
           <span className="text-xs font-medium">Scenarios</span>
         </button>
 
-        <button
-          onClick={() => navigate({ to: '/stats' })}
-          className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-            isStats ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
-          }`}
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-          </svg>
+        <button onClick={() => navigate({ to: '/stats' })} className={mobileItemClass(isStats)}>
+          <StatsIcon />
           <span className="text-xs font-medium">Stats</span>
         </button>
 
         {user ? (
-          <button
-            onClick={() => navigate({ to: '/leaderboard' })}
-            className={`flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors ${
-              isLeaderboard ? 'text-white' : 'text-gray-500 hover:text-zinc-300'
-            }`}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12v6a6 6 0 01-12 0V3zm0 3H3a3 3 0 003 3m12-3h3a3 3 0 01-3 3M10 15v5m4-5v5M8 20h8" />
-            </svg>
+          <button onClick={() => navigate({ to: '/leaderboard' })} className={mobileItemClass(isLeaderboard)}>
+            <RanksIcon />
             <span className="text-xs font-medium">Ranks</span>
           </button>
         ) : (
-          <button
-            onClick={() => setShowSignInModal(true)}
-            className="flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors text-gray-600 hover:text-gray-500"
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M6 3h12v6a6 6 0 01-12 0V3zm0 3H3a3 3 0 003 3m12-3h3a3 3 0 01-3 3M10 15v5m4-5v5M8 20h8" />
-            </svg>
+          <button onClick={() => setShowSignInModal(true)} className="flex-1 flex flex-col items-center justify-center py-4 gap-1 transition-colors text-gray-600 hover:text-gray-500">
+            <RanksIcon />
             <span className="text-xs font-medium">Ranks</span>
           </button>
         )}
