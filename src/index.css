@@ -44,3 +44,13 @@ html, body {
 .animate-fade-in {
   animation: fade-in 200ms ease-out;
 }
+
+/* Bottom nav padding on mobile, normal padding on desktop */
+.page-content {
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+@media (min-width: 768px) {
+  .page-content {
+    padding-bottom: 2rem;
+  }
+}

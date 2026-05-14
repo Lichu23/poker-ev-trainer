@@ -43,7 +43,7 @@ export function StatsPage() {
   }
 
   return (
-    <div className="min-h-full bg-gray-950 text-white px-4 py-8 max-w-xl mx-auto flex flex-col gap-6">
+    <div className="min-h-full bg-gray-950 text-white px-4 py-8 max-w-xl md:max-w-2xl mx-auto flex flex-col gap-6">
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-white">Stats</h1>
